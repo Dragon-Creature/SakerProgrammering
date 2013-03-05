@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.SessionState;
 
 public class User
 {
@@ -21,12 +22,18 @@ public class User
         Password = HashPassword(Password);
         if (Password == dPassword && useerId != null && Password != null)
         {
+            HttpSessionState httpss = new HttpSessionState();
+            httpss["useerId"] = useerId;
+            httpss["Password"] = Password;
             return true;
         }
         return false;
     }
     public void Logout()
     {
+        HttpSessionState httpss = new HttpSessionState();
+        httpss.Remove("useerId");
+        httpss.Remove("Password");
     }
     private string HashPassword(string Password)
     {
@@ -41,11 +48,20 @@ public class User
     }
     public void GetUserData()
     {
+        HttpSessionState httpss = new HttpSessionState();
+        int useerId = Convert.ToInt32(httpss["useerId"]);
+        string Password = Convert.ToString(httpss["Password"]);
+        if (Login(useerId, Password))
+        {
+            //TODO get userdata.
+        }
     }
     public void AddSickDays(Bitmap MedicalCertifcate)
     {
+
     }
     public void AddChildSickDays(string SocialSecurityNumberChild)
     {
+
     }
 }
