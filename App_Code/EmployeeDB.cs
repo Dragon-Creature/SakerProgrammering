@@ -60,6 +60,9 @@ public class EmployeeDB
             command.Parameters.AddWithValue("@illnessStart", illnessStart);
             command.Parameters.AddWithValue("@socialSecurityNumberChild", socialSecurityNumberChild);
             command.Parameters.AddWithValue("@anstalldId", anstalldId);
+
+            conn.Open();
+            command.ExecuteNonQuery();
         }
         catch (SqlException ex)
         {
