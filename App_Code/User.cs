@@ -8,14 +8,44 @@ using System.Web;
 
 public class User
 {
-    private int useerId;
+    private int useerId;//
     private string name;
     private string role;
     private Regex passwordPolicy;
-    private DateTime illnessStart;
-    private DateTime medicalCertificateExpires;
-    private Bitmap medicalCertifcate;
-    private string socialSecurityNumberChild;
+    private DateTime illnessStart;//
+    private DateTime medicalCertificateExpires;//
+    private Bitmap medicalCertifcate;//
+    private string socialSecurityNumberChild;//
+
+    public int UseerId 
+    {
+        get { return this.useerId; } 
+    }
+    public string Name
+    {
+        get { return this.name; }
+    }
+    public string Role
+    {
+        get { return this.role; }
+    }
+    public DateTime IllnessStart
+    {
+        get { return this.illnessStart; }
+    }
+    public DateTime MedicalCertificateExpires
+    {
+        get { return this.medicalCertificateExpires; }
+    }
+    public Bitmap MedicalCertifcate
+    {
+        get { return this.medicalCertifcate; }
+    }
+    public string SocialSecurityNumberChild
+    {
+        get { return this.socialSecurityNumberChild; }
+    }
+
     public Boolean Login(int useerId, string Password)
     {
 
