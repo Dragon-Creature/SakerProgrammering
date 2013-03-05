@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.SessionState;
+using System.Web;
 
 public class User
 {
@@ -17,12 +18,13 @@ public class User
     private string socialSecurityNumberChild;
     public Boolean Login(int useerId, string Password)
     {
+
         //TODO get hashed password from database
         string dPassword = "gjfnvj";
         Password = HashPassword(Password);
         if (Password == dPassword && useerId != null && Password != null)
         {
-            HttpSessionState httpss = new HttpSessionState();
+            HttpSessionState httpss = HttpContext.Current.Session;
             httpss["useerId"] = useerId;
             httpss["Password"] = Password;
             return true;
@@ -31,7 +33,7 @@ public class User
     }
     public void Logout()
     {
-        HttpSessionState httpss = new HttpSessionState();
+        HttpSessionState httpss = HttpContext.Current.Session;
         httpss.Remove("useerId");
         httpss.Remove("Password");
     }
@@ -48,7 +50,7 @@ public class User
     }
     public void GetUserData()
     {
-        HttpSessionState httpss = new HttpSessionState();
+        HttpSessionState httpss = HttpContext.Current.Session;
         int useerId = Convert.ToInt32(httpss["useerId"]);
         string Password = Convert.ToString(httpss["Password"]);
         if (Login(useerId, Password))
