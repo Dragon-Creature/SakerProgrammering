@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Default.aspx.vb" Inherits="_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
 <!DOCTYPE html>
 
@@ -8,13 +8,13 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        UserName
-        <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
+        UserId
+        <asp:TextBox ID="txtUsUserId" runat="server"></asp:TextBox>
         <br />
         Password
         <asp:TextBox ID="txtpassword" runat="server"></asp:TextBox>
         <br />
-        <asp:Button ID="btnSubmit" runat="server" Text="Button" />
+        <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
     </form>
 </body>
 </html>
