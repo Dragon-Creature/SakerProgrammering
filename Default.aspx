@@ -10,6 +10,7 @@
     <form id="form1" runat="server">
         UserId
         <asp:TextBox ID="txtUsUserId" runat="server"></asp:TextBox>
+        <asp:RegularExpressionValidator ID="revNumber" runat="server" ControlToValidate="txtUsUserId" ErrorMessage="Not a number" ValidationExpression="[0-9]"></asp:RegularExpressionValidator>
         <br />
         Password
         <asp:TextBox ID="txtpassword" runat="server"></asp:TextBox>
