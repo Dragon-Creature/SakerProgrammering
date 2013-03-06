@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<preserve resultType="3" virtualPath="/D:/Github/SakerProgrammering/Default.aspx" hash="fffffff9698c4a3d" filehash="944d0918bfe262b5" flags="110000" assembly="App_Web_wrlgxtgw" type="ASP.default_aspx">
+    <filedeps>
+        <filedep name="/D:/Github/SakerProgrammering/Default.aspx" />
+        <filedep name="/D:/Github/SakerProgrammering/Default.aspx.cs" />
+    </filedeps>
+</preserve>

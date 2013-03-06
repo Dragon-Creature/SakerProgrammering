@@ -1,3 +1,6 @@
+﻿#pragma checksum "D:\Github\SakerProgrammering\App_Code\User.cs" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "2A43F51500560EA2687DC49DCD36C6446A046C9E"
+
+#line 1 "D:\Github\SakerProgrammering\App_Code\User.cs"
 using System.Text.RegularExpressions;
 using System;
 using System.Drawing;
@@ -14,7 +17,7 @@ public class User
     private Regex passwordPolicy;
     private DateTime illnessStart;//
     private DateTime medicalCertificateExpires;//
-    private bool medicalCertifcate;//
+    private Bitmap medicalCertifcate;//
     private string socialSecurityNumberChild;//
 
     public int UseerId 
@@ -42,7 +45,7 @@ public class User
         get { return this.medicalCertificateExpires; }
         set { this.medicalCertificateExpires = value; }
     }
-    public bool MedicalCertifcate
+    public Bitmap MedicalCertifcate
     {
         get { return this.medicalCertifcate; }
         set { this.medicalCertifcate = value; }
@@ -104,3 +107,6 @@ public class User
 
     }
 }
+
+#line default
+#line hidden
