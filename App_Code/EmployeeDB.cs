@@ -15,11 +15,11 @@ public class EmployeeDB
     public EmployeeDB()
     {
     }
-    internal void AddLog(Log log)
+    public void AddLog(Log log)
     {
         //Behöver en tabell för att spara loggen. Om vi inte ska spara som fil, som redan är implementerat.
     }
-    internal void AddSickDays(User user)
+    public void AddSickDays(User user)
     {
         // Get the connectionstring from web.config
         String s = ConfigurationManager.ConnectionStrings["ourConnectionString"].ConnectionString;
@@ -41,7 +41,7 @@ public class EmployeeDB
             int useerId = user.UseerId;
 
             // Create SQL query
-            command.CommandText = "INSERT INTO dbo.Illnes (Start, Expires, medicalCertifcate, AnstalldId) VALUES (@illnessStart, @medicalCertificateExpires, @medicalCertifcate, @useerId)";
+            command.CommandText = "INSERT INTO dbo.Illness (Start, Expires, medicalCertifcate, AnstalldId) VALUES (@illnessStart, @medicalCertificateExpires, @medicalCertifcate, @useerId)";
 
             // Parameterized queries. Add values to database.
             command.Parameters.Add("@illnessStart", SqlDbType.DateTime);
@@ -59,7 +59,7 @@ public class EmployeeDB
         }
 
     }
-    internal void AddChildSickDays(User user)
+    public void AddChildSickDays(User user)
     {
         // Get the connectionstring from web.config
         String s = ConfigurationManager.ConnectionStrings["ourConnectionString"].ConnectionString;
@@ -96,7 +96,7 @@ public class EmployeeDB
         }
     }
     
-    internal User getUserInfo(int useerId)
+    public User getUserInfo(int useerId)
     {
         // Init
         User user = new User();
@@ -119,7 +119,7 @@ public class EmployeeDB
             conn.Open();
 
             // Create SQL query
-            command.CommandText = "SELECT (Start, Expires, medicalCertifcate, AnstalldId) FROM dbo.Illness WHERE (AnstalldId = $userId)";
+            command.CommandText = "SELECT (Start, Expires, medicalCertifcate, AnstalldId) FROM dbo.Illness WHERE (medicalCertifcate = $userId)";
 
             // Dont need to close connection because its handled by using-directive
             using (reader1 = command.ExecuteReader())
