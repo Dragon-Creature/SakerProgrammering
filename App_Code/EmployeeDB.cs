@@ -6,6 +6,8 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Transactions;
+using System.Web.UI.WebControls;
 
 /// <summary>
 /// Summary description for EmployeeDB
@@ -21,125 +23,81 @@ public class EmployeeDB
     }
     public void AddSickDays(User user)
     {
-        // Get the connectionstring from web.config
-        String s = ConfigurationManager.ConnectionStrings["ourConnectionString"].ConnectionString;
-        // Create a connection between application and server
-        SqlConnection conn = new SqlConnection(s);
-        // Create command so we can add/delete/read values from/to database
-        SqlCommand command = conn.CreateCommand();
-
-        try
+        using (TransactionScope ts = new TransactionScope())
         {
-            // Open the connection
-            conn.Open();
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
 
-            // Get the users data
-            DateTime illnessStart = user.IllnessStart;
-            DateTime medicalCertificateExpires = user.MedicalCertificateExpires;
-            bool haveCertificate = user.MedicalCertifcate;
-            int medicalCertifcate = haveCertificate ? 1 : 0;
-            int useerId = user.UseerId;
+                Illness illness = new Illness();
+                illness.Start = user.IllnessStart;
+                illness.Expires = user.MedicalCertificateExpires;
+                illness.medicalCertifcate = Convert.ToInt32(user.MedicalCertifcate);
+                //illness.AnstalldId = user.UseerId;    FUNGERAR EJ!!!
 
-            // Create SQL query
-            command.CommandText = "INSERT INTO dbo.Illness (Start, Expires, medicalCertifcate, AnstalldId) VALUES (@illnessStart, @medicalCertificateExpires, @medicalCertifcate, @useerId)";
+                db.Illnesses.InsertOnSubmit(illness);
+                db.SubmitChanges();
+            }
 
-            // Parameterized queries. Add values to database.
-            command.Parameters.Add("@illnessStart", SqlDbType.DateTime);
-            command.Parameters.Add("@medicalCertificateExpires", SqlDbType.DateTime);
-            command.Parameters.Add("@medicalCertifcate", SqlDbType.Int);
-            command.Parameters.Add("@useerId", SqlDbType.Int);
-
-            // Execute command and close the connection
-            command.ExecuteNonQuery();
-            conn.Close();
+            ts.Complete();
         }
-        catch (SqlException ex)
-        {
-            //Nånting
-        }
-
     }
     public void AddChildSickDays(User user)
     {
-        // Get the connectionstring from web.config
-        String s = ConfigurationManager.ConnectionStrings["ourConnectionString"].ConnectionString;
-        // Create a connection between application and server
-        SqlConnection conn = new SqlConnection(s);
-        // Create command so we can add/delete/read values from/to database
-        SqlCommand command = conn.CreateCommand();
-
-        try
+        using (TransactionScope ts = new TransactionScope())
         {
-            // Open the connection
-            conn.Open();
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
 
-            // Get the users data
-            DateTime illnessStart = user.IllnessStart;
-            string socialSecurityNumberChild = user.SocialSecurityNumberChild;
-            int useerId = user.UseerId;
+                ChildIllness childIllness = new ChildIllness();
+                childIllness.Start = user.IllnessStart;
+                childIllness.socialSecurity = user.SocialSecurityNumberChild;
+                //childIllness.AnstalldId = user.UseerId;   // TODO!! En konflikt med FOREIGN KEY FUNGERAR EJ!!!
+                db.SubmitChanges();
 
-            // Create SQL query
-            command.CommandText = "INSERT INTO dbo.ChildIllness (Start, socialSecurity, AnstalldId) VALUES (@illnessStart, @socialSecurityNumberChild, @useerId)";
+                db.ChildIllnesses.InsertOnSubmit(childIllness);
+                db.SubmitChanges();
+            }
 
-            // Parameterized queries. Add values to database.
-            command.Parameters.Add("@illnessStart", SqlDbType.DateTime);
-            command.Parameters.Add("@socialSecurityNumberChild", SqlDbType.NChar);
-            command.Parameters.Add("@useerId", SqlDbType.Int);
-
-            // Execute command and close the connection
-            command.ExecuteNonQuery();
-            conn.Close();
-        }
-        catch (SqlException ex)
-        {
-            //Nånting
+            ts.Complete();
         }
     }
-    
-    public User getUserInfo(int useerId)
+
+    public GridView getUserInfo(int useerId)
     {
-        // Init
-        User user = new User();
-        SqlDataReader reader1, reader2;
-        string socialSecurityNumberChild;
+        GridView gridView1 = new GridView();
+
+        gridView1.DataSource = getIllness(useerId);     // TODO!! Måste checka ifall den returnerar 0, om den gör det. Anropa getChildIllness(int useerId)
+        gridView1.DataBind();
         
-        // Declare userid to get correct userinfo from database
-        int userId = useerId;
-
-        // Get the connectionstring from web.config
-        String s = ConfigurationManager.ConnectionStrings["ourConnectionString"].ConnectionString;
-        // Create a connection between application and server
-        SqlConnection conn = new SqlConnection(s);
-        // Create command so we can add/delete/read values from/to database
-        SqlCommand command = conn.CreateCommand();
-
-        try
+        return gridView1;
+    }
+    private List<Illness> getIllness(int useerId)
+    {
+        List<Illness> user = new List<Illness>();
+        using (DataClassesDataContext db = new DataClassesDataContext())
         {
-            // Open the connection
-            conn.Open();
+            var userData = from u in db.Illnesses
+                           where u.Id == useerId    // TODO!! Ska egentligen vara where u.AnstalldId == useerId. Måste ha nåt fungerande att testa med.
+                       select u;
 
-            // Create SQL query
-            command.CommandText = "SELECT (Start, Expires, medicalCertifcate, AnstalldId) FROM dbo.Illness WHERE (medicalCertifcate = $userId)";
 
-            // Dont need to close connection because its handled by using-directive
-            using (reader1 = command.ExecuteReader())
-            {
-                if (reader1 != null)
-                {
-                    // Get data from database
-                    while (reader1.Read())
-                    {
-                        user.IllnessStart = (DateTime)command.Parameters["Start"].Value;
-                        user.MedicalCertificateExpires = (DateTime)command.Parameters["Expires"].Value;
-                        user.MedicalCertifcate = (Boolean)command.Parameters["Expires"].Value;
-                        user.UseerId = (Int32)command.Parameters["AnstalldId"].Value;
-                    }
-                }
-            }
+            if (userData.Count() > 0)
+                user = userData.ToList();
         }
-        catch (SqlException ex)
-        {
 
+        return user;
+    }
+    private List<ChildIllness> getChildIllness(int useerId)
+    {
+        List<ChildIllness> user = new List<ChildIllness>();
+        using (DataClassesDataContext db = new DataClassesDataContext())
+        {
+            var userData = from u in db.ChildIllnesses
+                           where u.Id == useerId
+                           select u;
+
+            if (userData.Count() > 0)
+                user = userData.ToList();
         }
 
         return user;
