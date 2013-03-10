@@ -13,6 +13,7 @@ public partial class Admin : System.Web.UI.Page
     // TEST TEST TEST. Testar lite bara. Detta ska inte var här sen såklart.
     protected void Page_Load(object sender, EventArgs e)
     {
+        
         db = new EmployeeDB();
         user = new User();
         // TEST 1.
@@ -22,7 +23,7 @@ public partial class Admin : System.Web.UI.Page
         user.UseerId = 111;
 
         db.AddSickDays(user);     //FUNGERAR! Förutom att kunna spara userId
-
+        
 
         // TEST 2
         //user.IllnessStart = Convert.ToDateTime("2013-03-06 00:00:00");
@@ -40,11 +41,16 @@ public partial class Admin : System.Web.UI.Page
         if (Page.IsValid)
         {
             // TEST 3
+            
             DataTable dt = new DataTable();
             DataRow dr1 = dt.NewRow();
             GridView1.DataSource = db.getUserInfo(Convert.ToInt32(txtSearch.Text)).DataSource;
             
             GridView1.DataBind();
+            
+            // Loggar aktiviteten
+            Log log = new Log();
+            log.LogMessage("Admin gjorde en sökning på anställningsnummer: " + txtSearch.Text + " från IP adress: " + Request.UserHostAddress);
         }
     }
 }
