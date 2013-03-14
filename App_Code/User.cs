@@ -6,16 +6,17 @@ using System.Text;
 using System.Web.SessionState;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Collections.Generic;
 
 public class User
 {
-    private int useerId;//
+    private int useerId = -1;//
     private string name;
     private string role;
     private Regex passwordPolicy;
     private DateTime illnessStart;//
     private DateTime medicalCertificateExpires;//
-    private bool medicalCertifcate;//
+    private bool medicalCertifcate = false;//
     private string socialSecurityNumberChild;//
     private EmployeeDB employeeDB = new EmployeeDB();
 
@@ -57,11 +58,10 @@ public class User
 
     public Boolean Login(int useerId, string Password)
     {
-
-        GridView gw = employeeDB.getUserInfo(useerId);
-        string dPassword = "";
+        List<Users> user = employeeDB.getUserInfo(useerId);
+        string dPassword = user[0].Password.Replace(" ", string.Empty);
         Password = HashPassword(Password);
-        if (Password == dPassword && useerId != null && Password != null)
+        if ((String.Compare(Password, dPassword)) == 0 && useerId == user[0].Id)
         {
             HttpSessionState httpss = HttpContext.Current.Session;
             httpss["useerId"] = useerId;
@@ -87,22 +87,34 @@ public class User
         }
         return hash;
     }
-    public void GetUserData()
+    public void GetUserData(int userId)
     {
         HttpSessionState httpss = HttpContext.Current.Session;
         int useerId = Convert.ToInt32(httpss["useerId"]);
         string Password = Convert.ToString(httpss["Password"]);
-        if (Login(useerId, Password))
-        {
-            GridView gw = employeeDB.getUserInfo(useerId);
-        }
+        Users user = new Users();
+        DataClassesDataContext db = new DataClassesDataContext();
+        
+        //GridView gw = employeeDB.getUserInfo(useerId);
+        user = employeeDB.getUserInfo(useerId)[0];
+        this.UseerId = user.Id;
+        this.Name = user.Name;
+        this.Role = user.Roles[0].RoleName;
+        this.IllnessStart = user.Illnesses[0].Start;
+        this.MedicalCertifcate = user.Illnesses[0].medicalCertifcate;
+        this.SocialSecurityNumberChild = user.ChildIllnesses[0].socialSecurity;
     }
-    public void AddSickDays(Bitmap MedicalCertifcate)
+    public int getUserId()
     {
-
+        HttpSessionState httpss = HttpContext.Current.Session;
+        return Convert.ToInt32(httpss["useerId"]);
     }
-    public void AddChildSickDays(string SocialSecurityNumberChild)
+    public void AddSickDays()
     {
-
+        employeeDB.AddSickDays(this);
+    }
+    public void AddChildSickDays()
+    {
+        employeeDB.AddChildSickDays(this);
     }
 }

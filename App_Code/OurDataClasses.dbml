@@ -6,7 +6,7 @@
       <Column Name="Start" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="socialSecurity" Type="System.String" DbType="NChar(11)" CanBeNull="true" />
       <Column Name="AnstalldId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="User_ChildIllness" Member="Users" Storage="_User" ThisKey="AnstalldId" OtherKey="Id" Type="Users" IsForeignKey="true" />
+      <Association Name="Users_ChildIllness" Member="Users" ThisKey="AnstalldId" OtherKey="Id" Type="Users" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Illness" Member="Illnesses">
@@ -14,16 +14,16 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Start" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Expires" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="medicalCertifcate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="medicalCertifcate" Type="System.Boolean" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="AnstalldId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="User_Illness" Member="Users" Storage="_User" ThisKey="AnstalldId" OtherKey="Id" Type="Users" IsForeignKey="true" />
+      <Association Name="Users_Illness" Member="Users" ThisKey="AnstalldId" OtherKey="Id" Type="Users" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Roles" Member="Roles">
     <Type Name="Role">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="RoleName" Type="System.String" DbType="NChar(25) NOT NULL" CanBeNull="false" />
-      <Association Name="Role_User" Member="Users" ThisKey="Id" OtherKey="Role" Type="Users" />
+      <Association Name="Users_Role" Member="Users" ThisKey="Id" OtherKey="Role" Type="Users" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Users" Member="Users">
@@ -32,9 +32,9 @@
       <Column Name="Name" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Password" Type="System.String" DbType="NChar(1000) NOT NULL" CanBeNull="false" />
       <Column Name="Role" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="User_ChildIllness" Member="ChildIllnesses" ThisKey="Id" OtherKey="AnstalldId" Type="ChildIllness" />
-      <Association Name="User_Illness" Member="Illnesses" ThisKey="Id" OtherKey="AnstalldId" Type="Illness" />
-      <Association Name="Role_User" Member="Role1" ThisKey="Role" OtherKey="Id" Type="Role" IsForeignKey="true" />
+      <Association Name="Users_Role" Member="Roles" ThisKey="Role" OtherKey="Id" Type="Role" />
+      <Association Name="Users_ChildIllness" Member="ChildIllnesses" ThisKey="Id" OtherKey="AnstalldId" Type="ChildIllness" />
+      <Association Name="Users_Illness" Member="Illnesses" ThisKey="Id" OtherKey="AnstalldId" Type="Illness" />
     </Type>
   </Table>
 </Database>

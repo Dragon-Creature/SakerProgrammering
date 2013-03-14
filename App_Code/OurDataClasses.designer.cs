@@ -120,7 +120,7 @@ public partial class ChildIllness : INotifyPropertyChanging, INotifyPropertyChan
 	
 	private System.Nullable<int> _AnstalldId;
 	
-	private EntityRef<Users> _User;
+	private EntityRef<Users> _Users;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -138,7 +138,7 @@ public partial class ChildIllness : INotifyPropertyChanging, INotifyPropertyChan
 	
 	public ChildIllness()
 	{
-		this._User = default(EntityRef<Users>);
+		this._Users = default(EntityRef<Users>);
 		OnCreated();
 	}
 	
@@ -213,7 +213,7 @@ public partial class ChildIllness : INotifyPropertyChanging, INotifyPropertyChan
 		{
 			if ((this._AnstalldId != value))
 			{
-				if (this._User.HasLoadedOrAssignedValue)
+				if (this._Users.HasLoadedOrAssignedValue)
 				{
 					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 				}
@@ -226,26 +226,26 @@ public partial class ChildIllness : INotifyPropertyChanging, INotifyPropertyChan
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ChildIllness", Storage="_User", ThisKey="AnstalldId", OtherKey="Id", IsForeignKey=true)]
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Users_ChildIllness", Storage="_Users", ThisKey="AnstalldId", OtherKey="Id", IsForeignKey=true)]
 	public Users Users
 	{
 		get
 		{
-			return this._User.Entity;
+			return this._Users.Entity;
 		}
 		set
 		{
-			Users previousValue = this._User.Entity;
+			Users previousValue = this._Users.Entity;
 			if (((previousValue != value) 
-						|| (this._User.HasLoadedOrAssignedValue == false)))
+						|| (this._Users.HasLoadedOrAssignedValue == false)))
 			{
 				this.SendPropertyChanging();
 				if ((previousValue != null))
 				{
-					this._User.Entity = null;
+					this._Users.Entity = null;
 					previousValue.ChildIllnesses.Remove(this);
 				}
-				this._User.Entity = value;
+				this._Users.Entity = value;
 				if ((value != null))
 				{
 					value.ChildIllnesses.Add(this);
@@ -293,11 +293,11 @@ public partial class Illness : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.DateTime _Expires;
 	
-	private int _medicalCertifcate;
+	private bool _medicalCertifcate;
 	
 	private System.Nullable<int> _AnstalldId;
 	
-	private EntityRef<Users> _User;
+	private EntityRef<Users> _Users;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -309,7 +309,7 @@ public partial class Illness : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnStartChanged();
     partial void OnExpiresChanging(System.DateTime value);
     partial void OnExpiresChanged();
-    partial void OnmedicalCertifcateChanging(int value);
+    partial void OnmedicalCertifcateChanging(bool value);
     partial void OnmedicalCertifcateChanged();
     partial void OnAnstalldIdChanging(System.Nullable<int> value);
     partial void OnAnstalldIdChanged();
@@ -317,7 +317,7 @@ public partial class Illness : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public Illness()
 	{
-		this._User = default(EntityRef<Users>);
+		this._Users = default(EntityRef<Users>);
 		OnCreated();
 	}
 	
@@ -382,7 +382,7 @@ public partial class Illness : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_medicalCertifcate", DbType="Int NOT NULL")]
-	public int medicalCertifcate
+	public bool medicalCertifcate
 	{
 		get
 		{
@@ -412,7 +412,7 @@ public partial class Illness : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			if ((this._AnstalldId != value))
 			{
-				if (this._User.HasLoadedOrAssignedValue)
+				if (this._Users.HasLoadedOrAssignedValue)
 				{
 					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 				}
@@ -425,26 +425,26 @@ public partial class Illness : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Illness", Storage="_User", ThisKey="AnstalldId", OtherKey="Id", IsForeignKey=true)]
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Users_Illness", Storage="_Users", ThisKey="AnstalldId", OtherKey="Id", IsForeignKey=true)]
 	public Users Users
 	{
 		get
 		{
-			return this._User.Entity;
+			return this._Users.Entity;
 		}
 		set
 		{
-			Users previousValue = this._User.Entity;
+			Users previousValue = this._Users.Entity;
 			if (((previousValue != value) 
-						|| (this._User.HasLoadedOrAssignedValue == false)))
+						|| (this._Users.HasLoadedOrAssignedValue == false)))
 			{
 				this.SendPropertyChanging();
 				if ((previousValue != null))
 				{
-					this._User.Entity = null;
+					this._Users.Entity = null;
 					previousValue.Illnesses.Remove(this);
 				}
-				this._User.Entity = value;
+				this._Users.Entity = value;
 				if ((value != null))
 				{
 					value.Illnesses.Add(this);
@@ -490,7 +490,7 @@ public partial class Role : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private string _RoleName;
 	
-	private EntitySet<Users> _Users;
+	private EntityRef<Users> _Users;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -504,7 +504,7 @@ public partial class Role : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public Role()
 	{
-		this._Users = new EntitySet<Users>(new Action<Users>(this.attach_Users), new Action<Users>(this.detach_Users));
+		this._Users = default(EntityRef<Users>);
 		OnCreated();
 	}
 	
@@ -519,6 +519,10 @@ public partial class Role : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			if ((this._Id != value))
 			{
+				if (this._Users.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
 				this.OnIdChanging(value);
 				this.SendPropertyChanging();
 				this._Id = value;
@@ -548,16 +552,37 @@ public partial class Role : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_User", Storage="_Users", ThisKey="Id", OtherKey="Role")]
-	public EntitySet<Users> Users
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Users_Role", Storage="_Users", ThisKey="Id", OtherKey="Role", IsForeignKey=true)]
+	public Users Users
 	{
 		get
 		{
-			return this._Users;
+			return this._Users.Entity;
 		}
 		set
 		{
-			this._Users.Assign(value);
+			Users previousValue = this._Users.Entity;
+			if (((previousValue != value) 
+						|| (this._Users.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Users.Entity = null;
+					previousValue.Roles.Remove(this);
+				}
+				this._Users.Entity = value;
+				if ((value != null))
+				{
+					value.Roles.Add(this);
+					this._Id = value.Role;
+				}
+				else
+				{
+					this._Id = default(int);
+				}
+				this.SendPropertyChanged("Users");
+			}
 		}
 	}
 	
@@ -580,18 +605,6 @@ public partial class Role : INotifyPropertyChanging, INotifyPropertyChanged
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
-	
-	private void attach_Users(Users entity)
-	{
-		this.SendPropertyChanging();
-		entity.Role1 = this;
-	}
-	
-	private void detach_Users(Users entity)
-	{
-		this.SendPropertyChanging();
-		entity.Role1 = null;
-	}
 }
 
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Users")]
@@ -608,11 +621,11 @@ public partial class Users : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private int _Role;
 	
+	private EntitySet<Role> _Roles;
+	
 	private EntitySet<ChildIllness> _ChildIllnesses;
 	
 	private EntitySet<Illness> _Illnesses;
-	
-	private EntityRef<Role> _Role1;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -630,9 +643,9 @@ public partial class Users : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public Users()
 	{
+		this._Roles = new EntitySet<Role>(new Action<Role>(this.attach_Roles), new Action<Role>(this.detach_Roles));
 		this._ChildIllnesses = new EntitySet<ChildIllness>(new Action<ChildIllness>(this.attach_ChildIllnesses), new Action<ChildIllness>(this.detach_ChildIllnesses));
 		this._Illnesses = new EntitySet<Illness>(new Action<Illness>(this.attach_Illnesses), new Action<Illness>(this.detach_Illnesses));
-		this._Role1 = default(EntityRef<Role>);
 		OnCreated();
 	}
 	
@@ -707,10 +720,6 @@ public partial class Users : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			if ((this._Role != value))
 			{
-				if (this._Role1.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
 				this.OnRoleChanging(value);
 				this.SendPropertyChanging();
 				this._Role = value;
@@ -720,7 +729,20 @@ public partial class Users : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ChildIllness", Storage="_ChildIllnesses", ThisKey="Id", OtherKey="AnstalldId")]
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Users_Role", Storage="_Roles", ThisKey="Role", OtherKey="Id")]
+	public EntitySet<Role> Roles
+	{
+		get
+		{
+			return this._Roles;
+		}
+		set
+		{
+			this._Roles.Assign(value);
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Users_ChildIllness", Storage="_ChildIllnesses", ThisKey="Id", OtherKey="AnstalldId")]
 	public EntitySet<ChildIllness> ChildIllnesses
 	{
 		get
@@ -733,7 +755,7 @@ public partial class Users : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Illness", Storage="_Illnesses", ThisKey="Id", OtherKey="AnstalldId")]
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Users_Illness", Storage="_Illnesses", ThisKey="Id", OtherKey="AnstalldId")]
 	public EntitySet<Illness> Illnesses
 	{
 		get
@@ -743,40 +765,6 @@ public partial class Users : INotifyPropertyChanging, INotifyPropertyChanged
 		set
 		{
 			this._Illnesses.Assign(value);
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_User", Storage="_Role1", ThisKey="Role", OtherKey="Id", IsForeignKey=true)]
-	public Role Role1
-	{
-		get
-		{
-			return this._Role1.Entity;
-		}
-		set
-		{
-			Role previousValue = this._Role1.Entity;
-			if (((previousValue != value) 
-						|| (this._Role1.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Role1.Entity = null;
-					previousValue.Users.Remove(this);
-				}
-				this._Role1.Entity = value;
-				if ((value != null))
-				{
-					value.Users.Add(this);
-					this._Role = value.Id;
-				}
-				else
-				{
-					this._Role = default(int);
-				}
-				this.SendPropertyChanged("Role1");
-			}
 		}
 	}
 	
@@ -798,6 +786,18 @@ public partial class Users : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
+	}
+	
+	private void attach_Roles(Role entity)
+	{
+		this.SendPropertyChanging();
+		entity.Users = this;
+	}
+	
+	private void detach_Roles(Role entity)
+	{
+		this.SendPropertyChanging();
+		entity.Users = null;
 	}
 	
 	private void attach_ChildIllnesses(ChildIllness entity)

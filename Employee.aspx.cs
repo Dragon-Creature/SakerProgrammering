@@ -16,7 +16,8 @@ public partial class Employee : System.Web.UI.Page
     {
         if (Page.IsValid) 
         {
-
+            User user = new User();
+            int userId = user.getUserId();
             DateTime fromDate = Convert.ToDateTime(txtFromDate.Text);
 
             // Anger vilken typ som är vald i radiobutton-listan. 
@@ -24,14 +25,17 @@ public partial class Employee : System.Web.UI.Page
 
             Log log = new Log();
 
+            user.GetUserData(userId);
             switch (sicknessType)
             {
                 case 0: // "Första sjukdagen"
 
                     // TODO Vart hämtar jag användarnamnet ifrån? Sessionen kanske?
-                    log.LogMessage("Användare: ? anmälde sjukskrivning, från IP adress: " + Request.UserHostAddress);
+                    log.LogMessage("Användare: " + userId + " anmälde sjukskrivning, från IP adress: " + Request.UserHostAddress);
                     
                     // TODO add to database..
+                    user.IllnessStart = Convert.ToDateTime(txtFromDate.Text);
+                    user.AddSickDays();
                     break;
 
                 case 1: // "Sjukskriven av läkare"
@@ -39,9 +43,13 @@ public partial class Employee : System.Web.UI.Page
                     DateTime toDate = Convert.ToDateTime(txtToDate.Text);
 
                     // TODO Vart hämtar jag användarnamnet ifrån? Sessionen kanske?
-                    log.LogMessage("Användare: ? anmälde sjukskrivning av läkare, från IP adress: " + Request.UserHostAddress);
+                    log.LogMessage("Användare: " + userId + " anmälde sjukskrivning av läkare, från IP adress: " + Request.UserHostAddress);
 
                     // TODO add to database..
+                    user.IllnessStart = Convert.ToDateTime(txtFromDate.Text);
+                    user.MedicalCertificateExpires = Convert.ToDateTime(txtToDate.Text);
+                    user.MedicalCertifcate = true;
+                    user.AddSickDays();
                     break;
 
                 case 2: // "Vård av barn"
@@ -49,9 +57,12 @@ public partial class Employee : System.Web.UI.Page
                     string ssn = txtChild.Text;
 
                     // TODO Vart hämtar jag användarnamnet ifrån? Sessionen kanske?
-                    log.LogMessage("Användare: ? anmälde vård av barn, från IP adress: " + Request.UserHostAddress);
+                    log.LogMessage("Användare: " + userId + " anmälde vård av barn, från IP adress: " + Request.UserHostAddress);
 
                     // TODO add to database..
+                    user.IllnessStart = Convert.ToDateTime(txtFromDate.Text);
+                    user.SocialSecurityNumberChild = ssn;
+                    user.AddChildSickDays();
                     break;
             }
         }

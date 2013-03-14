@@ -14,7 +14,15 @@ public partial class _Default : System.Web.UI.Page
     protected void btnLogin_Click(object sender, EventArgs e)
     {
         User user = new User();
-        user.Login(Convert.ToInt32(txtUsUserId.Text), txtpassword.Text);
+        if (user.Login(Convert.ToInt32(txtUsUserId.Text), txtpassword.Text))    // TODO! Måste checka ifall det är admin eller employee.
+        {
+            user.GetUserData(Convert.ToInt32(txtUsUserId.Text));
+
+            if (txtUsUserId.Text == "3")
+                Server.Transfer("Admin.aspx");
+            else
+                Server.Transfer("Employee.aspx");                               // Testar lite mot databasen bara
+        }
 
         
         // Loggar aktiviteten
