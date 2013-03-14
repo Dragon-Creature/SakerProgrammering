@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.SessionState;
 using System.Web;
+using System.Web.UI.WebControls;
 
 public class User
 {
@@ -16,6 +17,7 @@ public class User
     private DateTime medicalCertificateExpires;//
     private bool medicalCertifcate;//
     private string socialSecurityNumberChild;//
+    private EmployeeDB employeeDB = new EmployeeDB();
 
     public int UseerId 
     {
@@ -56,8 +58,8 @@ public class User
     public Boolean Login(int useerId, string Password)
     {
 
-        //TODO get hashed password from database
-        string dPassword = "gjfnvj";
+        GridView gw = employeeDB.getUserInfo(useerId);
+        string dPassword = "";
         Password = HashPassword(Password);
         if (Password == dPassword && useerId != null && Password != null)
         {
@@ -92,7 +94,7 @@ public class User
         string Password = Convert.ToString(httpss["Password"]);
         if (Login(useerId, Password))
         {
-            //TODO get userdata.
+            GridView gw = employeeDB.getUserInfo(useerId);
         }
     }
     public void AddSickDays(Bitmap MedicalCertifcate)
