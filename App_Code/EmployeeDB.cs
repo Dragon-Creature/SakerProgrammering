@@ -30,9 +30,12 @@ public class EmployeeDB
 
                 Illness illness = new Illness();
                 illness.Start = user.IllnessStart;
-                illness.Expires = user.MedicalCertificateExpires;
                 illness.medicalCertifcate = Convert.ToInt32(user.MedicalCertifcate);
-                //illness.AnstalldId = user.UseerId;    FUNGERAR EJ!!!
+                if(illness.medicalCertifcate == 1)     // Om användaren är sjukskriven av läkare, ange data. Annars, ange ett defaultvärde. Blir ett exception annars om inget anges.
+                    illness.Expires = user.MedicalCertificateExpires;
+                else
+                    illness.Expires = Convert.ToDateTime("1900-01-01");
+                illness.AnstalldId = user.UseerId;
 
                 db.Illnesses.InsertOnSubmit(illness);
                 db.SubmitChanges();
@@ -51,7 +54,7 @@ public class EmployeeDB
                 ChildIllness childIllness = new ChildIllness();
                 childIllness.Start = user.IllnessStart;
                 childIllness.socialSecurity = user.SocialSecurityNumberChild;
-                //childIllness.AnstalldId = user.UseerId;   // TODO!! En konflikt med FOREIGN KEY FUNGERAR EJ!!!
+                childIllness.AnstalldId = user.UseerId;   // TODO!! En konflikt med FOREIGN KEY FUNGERAR EJ!!!
                 db.SubmitChanges();
 
                 db.ChildIllnesses.InsertOnSubmit(childIllness);
@@ -65,41 +68,51 @@ public class EmployeeDB
     public GridView getUserInfo(int useerId)
     {
         GridView gridView1 = new GridView();
-
-        gridView1.DataSource = getIllness(useerId);     // TODO!! Måste checka ifall den returnerar 0, om den gör det. Anropa getChildIllness(int useerId)
-        gridView1.DataBind();
-        
-        return gridView1;
-    }
-    private List<Illness> getIllness(int useerId)
-    {
-        List<Illness> user = new List<Illness>();
+        List<Users> user = new List<Users>();
         using (DataClassesDataContext db = new DataClassesDataContext())
         {
-            var userData = from u in db.Illnesses
-                           where u.Id == useerId    // TODO!! Ska egentligen vara where u.AnstalldId == useerId. Måste ha nåt fungerande att testa med.
+            var userData = from u in db.Users
+                       where u.Id == useerId
                        select u;
 
-
             if (userData.Count() > 0)
                 user = userData.ToList();
         }
 
-        return user;
-    }
-    private List<ChildIllness> getChildIllness(int useerId)
-    {
-        List<ChildIllness> user = new List<ChildIllness>();
-        using (DataClassesDataContext db = new DataClassesDataContext())
-        {
-            var userData = from u in db.ChildIllnesses
-                           where u.Id == useerId
-                           select u;
+        gridView1.DataSource = user;
+        gridView1.DataBind();
 
-            if (userData.Count() > 0)
-                user = userData.ToList();
-        }
-
-        return user;
+        return gridView1;
     }
+    //private List<Illness> getIllness(int useerId)
+    //{
+    //    List<Illness> user = new List<Illness>();
+    //    using (DataClassesDataContext db = new DataClassesDataContext())
+    //    {
+    //        var userData = from u in db.Illnesses
+    //                       where u.Id == useerId    // TODO!! Ska egentligen vara where u.AnstalldId == useerId. Måste ha nåt fungerande att testa med.
+    //                       select u;
+
+
+    //        if (userData.Count() > 0)
+    //            user = userData.ToList();
+    //    }
+
+    //    return user;
+    //}
+    //private List<ChildIllness> getChildIllness(int useerId)
+    //{
+    //    List<ChildIllness> user = new List<ChildIllness>();
+    //    using (DataClassesDataContext db = new DataClassesDataContext())
+    //    {
+    //        var userData = from u in db.ChildIllnesses
+    //                       where u.Id == useerId
+    //                       select u;
+
+    //        if (userData.Count() > 0)
+    //            user = userData.ToList();
+    //    }
+
+    //    return user;
+    //}
 }
