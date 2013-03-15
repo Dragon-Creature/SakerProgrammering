@@ -8,18 +8,21 @@ using System.Data;
 
 public partial class Admin : System.Web.UI.Page
 {
+    List<User> users;
     User user;
     // TEST TEST TEST. Testar lite bara. Detta ska inte var här sen såklart.
     protected void Page_Load(object sender, EventArgs e)
     {
+        users = new List<User>();
         user = new User();
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         if (Page.IsValid)
         {
-            user.GetUserData(Convert.ToInt32(txtSearch.Text));
-            GridView1.DataSource = user;                        // Kan hända att vi behöver en Lista av user, så gridden blir nöjd.
+            user.GetEmployeeInfo(txtSearch.Text);
+            users.Add(user);
+            GridView1.DataSource = users;                        // Kan hända att vi behöver en Lista av user, så gridden blir nöjd.
             
             GridView1.DataBind();
             

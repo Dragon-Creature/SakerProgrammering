@@ -25,7 +25,7 @@ public partial class Employee : System.Web.UI.Page
 
             Log log = new Log();
 
-            user.GetUserData(userId);
+            user.GetUserData();
             switch (sicknessType)
             {
                 case 0: // "Första sjukdagen"

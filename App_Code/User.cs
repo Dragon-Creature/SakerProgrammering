@@ -87,22 +87,40 @@ public class User
         }
         return hash;
     }
-    public void GetUserData(int userId)
+    public void GetUserData()
     {
         HttpSessionState httpss = HttpContext.Current.Session;
         int useerId = Convert.ToInt32(httpss["useerId"]);
         string Password = Convert.ToString(httpss["Password"]);
         Users user = new Users();
-        DataClassesDataContext db = new DataClassesDataContext();
         
-        //GridView gw = employeeDB.getUserInfo(useerId);
         user = employeeDB.getUserInfo(useerId)[0];
         this.UseerId = user.Id;
         this.Name = user.Name;
-        this.Role = user.Roles[0].RoleName;
-        this.IllnessStart = user.Illnesses[0].Start;
-        this.MedicalCertifcate = user.Illnesses[0].medicalCertifcate;
-        this.SocialSecurityNumberChild = user.ChildIllnesses[0].socialSecurity;
+        this.Role = user.Roles.RoleName;
+        if (user.Illnesses.Count > 0)
+        {
+            this.IllnessStart = user.Illnesses[0].Start;
+            this.MedicalCertifcate = user.Illnesses[0].medicalCertifcate;
+        }
+        if(user.ChildIllnesses.Count > 0)
+            this.SocialSecurityNumberChild = user.ChildIllnesses[0].socialSecurity;
+    }
+    public void GetEmployeeInfo(string userId)
+    {
+        Users user = new Users();
+
+        user = employeeDB.getUserInfo(Convert.ToInt32(userId))[0];
+        this.UseerId = user.Id;
+        this.Name = user.Name;
+        this.Role = user.Roles.RoleName;
+        if (user.Illnesses.Count > 0)
+        {
+            this.IllnessStart = user.Illnesses[0].Start;
+            this.MedicalCertifcate = user.Illnesses[0].medicalCertifcate;
+        }
+        if (user.ChildIllnesses.Count > 0)
+            this.SocialSecurityNumberChild = user.ChildIllnesses[0].socialSecurity;
     }
     public int getUserId()
     {

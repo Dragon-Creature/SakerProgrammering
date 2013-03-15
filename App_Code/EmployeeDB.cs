@@ -19,43 +19,47 @@ public class EmployeeDB
     }
     public void AddSickDays(User user)
     {
-        TransactionScope ts = new TransactionScope();
-        
-            DataClassesDataContext db = new DataClassesDataContext();
+        using (TransactionScope ts = new TransactionScope())
+        {
 
-            Illness illness = new Illness();
-            illness.Start = user.IllnessStart;
-            illness.medicalCertifcate = user.MedicalCertifcate;
-            if(illness.medicalCertifcate == true)     // Om användaren är sjukskriven av läkare, ange data. Annars, ange ett defaultvärde. Blir ett exception annars om inget anges.
-                illness.Expires = user.MedicalCertificateExpires;
-            else
-                illness.Expires = Convert.ToDateTime("1900-01-01");
-            illness.AnstalldId = user.UseerId;
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
 
-            db.Illnesses.InsertOnSubmit(illness);
-            db.SubmitChanges();
-            
+                Illness illness = new Illness();
+                illness.Start = user.IllnessStart;
+                illness.medicalCertifcate = user.MedicalCertifcate;
+                if (illness.medicalCertifcate == true)     // Om användaren är sjukskriven av läkare, ange data. Annars, ange ett defaultvärde. Blir ett exception annars om inget anges.
+                    illness.Expires = user.MedicalCertificateExpires;
+                else
+                    illness.Expires = Convert.ToDateTime("1900-01-01");
+                illness.AnstalldId = user.UseerId;
 
+                db.Illnesses.InsertOnSubmit(illness);
+                db.SubmitChanges();
+            }
             ts.Complete();
+        }
         
     }
     public void AddChildSickDays(User user)
     {
-        TransactionScope ts = new TransactionScope();
-        
-            DataClassesDataContext db = new DataClassesDataContext();
+        using (TransactionScope ts = new TransactionScope())
+        {
 
-            ChildIllness childIllness = new ChildIllness();
-            childIllness.Start = user.IllnessStart;
-            childIllness.socialSecurity = user.SocialSecurityNumberChild;
-            childIllness.AnstalldId = user.UseerId;
-            db.SubmitChanges();
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
 
-            db.ChildIllnesses.InsertOnSubmit(childIllness);
-            db.SubmitChanges();
-            
+                ChildIllness childIllness = new ChildIllness();
+                childIllness.Start = user.IllnessStart;
+                childIllness.socialSecurity = user.SocialSecurityNumberChild;
+                childIllness.AnstalldId = user.UseerId;
+                db.SubmitChanges();
+
+                db.ChildIllnesses.InsertOnSubmit(childIllness);
+                db.SubmitChanges();
+            }
             ts.Complete();
-        
+        }   
     }
 
     public List<Users> getUserInfo(int useerId)

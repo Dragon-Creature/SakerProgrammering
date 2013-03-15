@@ -16,7 +16,7 @@ public partial class _Default : System.Web.UI.Page
         User user = new User();
         if (user.Login(Convert.ToInt32(txtUsUserId.Text), txtpassword.Text))    // TODO! Måste checka ifall det är admin eller employee.
         {
-            user.GetUserData(Convert.ToInt32(txtUsUserId.Text));
+            user.GetUserData();
 
             if (txtUsUserId.Text == "3")
                 Server.Transfer("Admin.aspx");
