@@ -20,11 +20,25 @@ public partial class Admin : System.Web.UI.Page
     {
         if (Page.IsValid)
         {
+            DataTable dt = new DataTable("tjo");
+            //DataTable dt = gridViewUserInfo.DataSource as DataTable;
             user.GetEmployeeInfo(txtSearch.Text);
             users.Add(user);
-            GridView1.DataSource = users;                        // Kan hända att vi behöver en Lista av user, så gridden blir nöjd.
-            
-            GridView1.DataBind();
+
+            dt.Columns.Add("ID");
+            dt.Columns.Add("Fr.o.m");
+            dt.Columns.Add("Läkarintyg");
+            dt.Columns.Add("T.o.m");
+            dt.Columns.Add("Barnets personnummer");
+
+            for (int i = 0; i < users[0].IllnessStart.Count(); ++i)
+            {
+                dt.LoadDataRow(new object[]{users[0].UserId, users[0].IllnessStart[i], users[0].MedicalCertifcate[i], users[0].MedicalCertificateExpires[i], users[0].SocialSecurityNumberChild[i]}, true);
+            }
+
+
+            gridViewUserInfo.DataSource = dt;                        // Kan hända att vi behöver en Lista av user, så gridden blir nöjd.
+            gridViewUserInfo.DataBind();
             
             // Loggar aktiviteten
             Log log = new Log();

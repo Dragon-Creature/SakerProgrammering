@@ -36,7 +36,7 @@ public class EmployeeDB
             DateTime illnessStart = user.IllnessStart;
             DateTime medicalCertificateExpires = user.MedicalCertificateExpires;
             Bitmap medicalCertifcate = user.MedicalCertifcate;
-            int useerId = user.UseerId;
+            int useerId = user.UserId;
             command.CommandText = "INSERT INTO Illnes (Start, Expires, medicalCertifcate, AnstalldId) VALUES (@illnessStart, @medicalCertificateExpires, @medicalCertifcate, @useerId)";
 
             command.Parameters.AddWithValue("@illnessStart", illnessStart);
@@ -58,7 +58,7 @@ public class EmployeeDB
         {
             DateTime illnessStart = user.IllnessStart;
             string socialSecurityNumberChild = user.SocialSecurityNumberChild;
-            int useerId = user.UseerId;
+            int useerId = user.UserId;
             command.CommandText = "INSERT INTO ChildIllness (Start, socialSecurity, AnstalldId) VALUES (@illnessStart, @socialSecurityNumberChild, @useerId)";
 
             command.Parameters.AddWithValue("@illnessStart", illnessStart);

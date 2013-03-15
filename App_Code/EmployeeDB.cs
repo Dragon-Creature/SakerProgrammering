@@ -26,13 +26,13 @@ public class EmployeeDB
             {
 
                 Illness illness = new Illness();
-                illness.Start = user.IllnessStart;
-                illness.medicalCertifcate = user.MedicalCertifcate;
+                illness.Start = user.IllnessStart[0];
+                illness.medicalCertifcate = user.MedicalCertifcate[0];
                 if (illness.medicalCertifcate == true)     // Om användaren är sjukskriven av läkare, ange data. Annars, ange ett defaultvärde. Blir ett exception annars om inget anges.
-                    illness.Expires = user.MedicalCertificateExpires;
+                    illness.Expires = user.MedicalCertificateExpires[0];
                 else
                     illness.Expires = Convert.ToDateTime("1900-01-01");
-                illness.AnstalldId = user.UseerId;
+                illness.AnstalldId = user.UserId;
 
                 db.Illnesses.InsertOnSubmit(illness);
                 db.SubmitChanges();
@@ -50,9 +50,9 @@ public class EmployeeDB
             {
 
                 ChildIllness childIllness = new ChildIllness();
-                childIllness.Start = user.IllnessStart;
-                childIllness.socialSecurity = user.SocialSecurityNumberChild;
-                childIllness.AnstalldId = user.UseerId;
+                childIllness.Start = user.IllnessStart[0];
+                childIllness.socialSecurity = user.SocialSecurityNumberChild[0];
+                childIllness.AnstalldId = user.UserId;
                 db.SubmitChanges();
 
                 db.ChildIllnesses.InsertOnSubmit(childIllness);
@@ -62,7 +62,7 @@ public class EmployeeDB
         }   
     }
 
-    public List<Users> getUserInfo(int useerId)
+    public List<Users> GetUserData(int useerId)
     {
         List<Users> user = new List<Users>();
         DataClassesDataContext db = new DataClassesDataContext();

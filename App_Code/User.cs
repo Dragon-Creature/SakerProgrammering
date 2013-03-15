@@ -10,20 +10,20 @@ using System.Collections.Generic;
 
 public class User
 {
-    private int useerId = -1;//
+    private int userId = -1;//
     private string name;
     private string role;
     private Regex passwordPolicy;
-    private DateTime illnessStart;//
-    private DateTime medicalCertificateExpires;//
-    private bool medicalCertifcate = false;//
-    private string socialSecurityNumberChild;//
+    private List<DateTime> illnessStart = new List<DateTime>();//
+    private List<DateTime> medicalCertificateExpires = new List<DateTime>();//
+    private List<bool> medicalCertifcate = new List<bool>();//
+    private List<string> socialSecurityNumberChild = new List<string>();//
     private EmployeeDB employeeDB = new EmployeeDB();
 
-    public int UseerId 
+    public int UserId 
     {
-        get { return this.useerId; }
-        set { this.useerId = value; }
+        get { return this.userId; }
+        set { this.userId = value; }
     }
     public string Name
     {
@@ -35,22 +35,22 @@ public class User
         get { return this.role; }
         set { this.role = value; }
     }
-    public DateTime IllnessStart
+    public List<DateTime> IllnessStart
     {
         get { return this.illnessStart; }
         set { this.illnessStart = value; }
     }
-    public DateTime MedicalCertificateExpires
+    public List<DateTime> MedicalCertificateExpires
     {
         get { return this.medicalCertificateExpires; }
         set { this.medicalCertificateExpires = value; }
     }
-    public bool MedicalCertifcate
+    public List<bool> MedicalCertifcate
     {
         get { return this.medicalCertifcate; }
         set { this.medicalCertifcate = value; }
     }
-    public string SocialSecurityNumberChild
+    public List<string> SocialSecurityNumberChild
     {
         get { return this.socialSecurityNumberChild; }
         set { this.socialSecurityNumberChild = value; }
@@ -58,7 +58,7 @@ public class User
 
     public Boolean Login(int useerId, string Password)
     {
-        List<Users> user = employeeDB.getUserInfo(useerId);
+        List<Users> user = employeeDB.GetUserData(useerId);
         string dPassword = user[0].Password.Replace(" ", string.Empty);
         Password = HashPassword(Password);
         if ((String.Compare(Password, dPassword)) == 0 && useerId == user[0].Id)
@@ -94,33 +94,39 @@ public class User
         string Password = Convert.ToString(httpss["Password"]);
         Users user = new Users();
         
-        user = employeeDB.getUserInfo(useerId)[0];
-        this.UseerId = user.Id;
+        user = employeeDB.GetUserData(useerId)[0];
+        this.UserId = user.Id;
         this.Name = user.Name;
         this.Role = user.Roles.RoleName;
-        if (user.Illnesses.Count > 0)
+        
+        for (int i = 0; i < user.Illnesses.Count; ++i)
         {
-            this.IllnessStart = user.Illnesses[0].Start;
-            this.MedicalCertifcate = user.Illnesses[0].medicalCertifcate;
+            this.IllnessStart.Add(user.Illnesses[i].Start);
+            this.MedicalCertifcate.Add(user.Illnesses[i].medicalCertifcate);
         }
-        if(user.ChildIllnesses.Count > 0)
-            this.SocialSecurityNumberChild = user.ChildIllnesses[0].socialSecurity;
+
+        for (int i = 0; i < user.ChildIllnesses.Count; ++i)
+            this.SocialSecurityNumberChild.Add(user.ChildIllnesses[i].socialSecurity);
     }
     public void GetEmployeeInfo(string userId)
     {
         Users user = new Users();
 
-        user = employeeDB.getUserInfo(Convert.ToInt32(userId))[0];
-        this.UseerId = user.Id;
+        user = employeeDB.GetUserData(Convert.ToInt32(userId))[0];
+        this.UserId = user.Id;
         this.Name = user.Name;
         this.Role = user.Roles.RoleName;
         if (user.Illnesses.Count > 0)
         {
-            this.IllnessStart = user.Illnesses[0].Start;
-            this.MedicalCertifcate = user.Illnesses[0].medicalCertifcate;
+            for (int i = 0; i < user.Illnesses.Count; ++i)
+            {
+                this.IllnessStart.Add(user.Illnesses[i].Start);
+                this.MedicalCertifcate.Add(user.Illnesses[i].medicalCertifcate);
+                this.medicalCertificateExpires.Add(user.Illnesses[i].Expires);
+            }
         }
-        if (user.ChildIllnesses.Count > 0)
-            this.SocialSecurityNumberChild = user.ChildIllnesses[0].socialSecurity;
+        for (int i = 0; i < user.ChildIllnesses.Count; ++i)
+            this.SocialSecurityNumberChild.Add(user.ChildIllnesses[i].socialSecurity);
     }
     public int getUserId()
     {

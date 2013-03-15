@@ -34,7 +34,7 @@ public partial class Employee : System.Web.UI.Page
                     log.LogMessage("Användare: " + userId + " anmälde sjukskrivning, från IP adress: " + Request.UserHostAddress);
                     
                     // TODO add to database..
-                    user.IllnessStart = Convert.ToDateTime(txtFromDate.Text);
+                    user.IllnessStart[0] = Convert.ToDateTime(txtFromDate.Text);
                     user.AddSickDays();
                     break;
 
@@ -46,9 +46,9 @@ public partial class Employee : System.Web.UI.Page
                     log.LogMessage("Användare: " + userId + " anmälde sjukskrivning av läkare, från IP adress: " + Request.UserHostAddress);
 
                     // TODO add to database..
-                    user.IllnessStart = Convert.ToDateTime(txtFromDate.Text);
-                    user.MedicalCertificateExpires = Convert.ToDateTime(txtToDate.Text);
-                    user.MedicalCertifcate = true;
+                    user.IllnessStart[0] = Convert.ToDateTime(txtFromDate.Text);
+                    user.MedicalCertificateExpires[0] = Convert.ToDateTime(txtToDate.Text);
+                    user.MedicalCertifcate[0] = true;
                     user.AddSickDays();
                     break;
 
@@ -60,8 +60,8 @@ public partial class Employee : System.Web.UI.Page
                     log.LogMessage("Användare: " + userId + " anmälde vård av barn, från IP adress: " + Request.UserHostAddress);
 
                     // TODO add to database..
-                    user.IllnessStart = Convert.ToDateTime(txtFromDate.Text);
-                    user.SocialSecurityNumberChild = ssn;
+                    user.IllnessStart[0] = Convert.ToDateTime(txtFromDate.Text);
+                    user.SocialSecurityNumberChild[0] = ssn;
                     user.AddChildSickDays();
                     break;
             }
