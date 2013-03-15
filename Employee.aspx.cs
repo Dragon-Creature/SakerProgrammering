@@ -34,7 +34,11 @@ public partial class Employee : System.Web.UI.Page
                     log.LogMessage("Användare: " + userId + " anmälde sjukskrivning, från IP adress: " + Request.UserHostAddress);
                     
                     // TODO add to database..
-                    user.IllnessStart[0] = Convert.ToDateTime(txtFromDate.Text);
+                    user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
+                    user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
+                    user.MedicalCertificate.Add(false);
+                    user.ChildIllness.Add(false);
+                    user.SocialSecurityNumberChild.Add(string.Empty);
                     user.AddSickDays();
                     break;
 
@@ -46,9 +50,11 @@ public partial class Employee : System.Web.UI.Page
                     log.LogMessage("Användare: " + userId + " anmälde sjukskrivning av läkare, från IP adress: " + Request.UserHostAddress);
 
                     // TODO add to database..
-                    user.IllnessStart[0] = Convert.ToDateTime(txtFromDate.Text);
-                    user.MedicalCertificateExpires[0] = Convert.ToDateTime(txtToDate.Text);
-                    user.MedicalCertifcate[0] = true;
+                    user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
+                    user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
+                    user.MedicalCertificate.Add(true);
+                    user.ChildIllness.Add(false);
+                    user.SocialSecurityNumberChild.Add(string.Empty);
                     user.AddSickDays();
                     break;
 
@@ -60,9 +66,12 @@ public partial class Employee : System.Web.UI.Page
                     log.LogMessage("Användare: " + userId + " anmälde vård av barn, från IP adress: " + Request.UserHostAddress);
 
                     // TODO add to database..
-                    user.IllnessStart[0] = Convert.ToDateTime(txtFromDate.Text);
-                    user.SocialSecurityNumberChild[0] = ssn;
-                    user.AddChildSickDays();
+                    user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
+                    user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
+                    user.MedicalCertificate.Add(false);
+                    user.ChildIllness.Add(true);
+                    user.SocialSecurityNumberChild.Add(ssn);
+                    user.AddSickDays();
                     break;
             }
         }

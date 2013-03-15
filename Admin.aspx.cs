@@ -8,36 +8,47 @@ using System.Data;
 
 public partial class Admin : System.Web.UI.Page
 {
-    List<User> users;
-    User user;
-    // TEST TEST TEST. Testar lite bara. Detta ska inte var här sen såklart.
     protected void Page_Load(object sender, EventArgs e)
     {
-        users = new List<User>();
-        user = new User();
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
+        // Init
+        User user = new User();
+        String medicalCertificateExpires = "";
+        String socialSecurityNumberChild = "";
+
         if (Page.IsValid)
         {
-            DataTable dt = new DataTable("tjo");
-            //DataTable dt = gridViewUserInfo.DataSource as DataTable;
-            user.GetEmployeeInfo(txtSearch.Text);
-            users.Add(user);
+            DataTable dt = new DataTable();
+            user.GetEmployeeInfo(txtSearch.Text);   // Hämta all info om en efterfrågad medlem
 
+            /**********Lägg till kolumner**********/
             dt.Columns.Add("ID");
             dt.Columns.Add("Fr.o.m");
             dt.Columns.Add("Läkarintyg");
             dt.Columns.Add("T.o.m");
-            dt.Columns.Add("Barnets personnummer");
+            dt.Columns.Add("VAB");
+            dt.Columns.Add("Barnets Personnummer");
 
-            for (int i = 0; i < users[0].IllnessStart.Count(); ++i)
+            /****************Spara all medlemsinfo till en datatabell****************/
+            for (int i = 0; i < user.IllnessStart.Count; ++i)
             {
-                dt.LoadDataRow(new object[]{users[0].UserId, users[0].IllnessStart[i], users[0].MedicalCertifcate[i], users[0].MedicalCertificateExpires[i], users[0].SocialSecurityNumberChild[i]}, true);
+                if (user.MedicalCertificate[i] == false)
+                    medicalCertificateExpires = string.Empty;
+                else
+                    medicalCertificateExpires = user.MedicalCertificateExpires[i].ToString();
+
+                if (user.SocialSecurityNumberChild[i] == string.Empty)
+                    socialSecurityNumberChild = string.Empty;
+                else
+                    socialSecurityNumberChild = user.SocialSecurityNumberChild[i];
+
+                dt.LoadDataRow(new object[] { user.UserId, user.IllnessStart[i], user.MedicalCertificate[i], medicalCertificateExpires, user.ChildIllness[i], socialSecurityNumberChild }, true);
             }
 
-
-            gridViewUserInfo.DataSource = dt;                        // Kan hända att vi behöver en Lista av user, så gridden blir nöjd.
+            /**********Spara datatabellen till gridden*************/
+            gridViewUserInfo.DataSource = dt;
             gridViewUserInfo.DataBind();
             
             // Loggar aktiviteten

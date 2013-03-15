@@ -17,7 +17,7 @@ public class User
     private Regex passwordPolicy;
     private DateTime illnessStart;//
     private DateTime medicalCertificateExpires;//
-    private Bitmap medicalCertifcate;//
+    private Bitmap medicalCertificate;//
     private string socialSecurityNumberChild;//
 
     public int UseerId 
@@ -45,10 +45,10 @@ public class User
         get { return this.medicalCertificateExpires; }
         set { this.medicalCertificateExpires = value; }
     }
-    public Bitmap MedicalCertifcate
+    public Bitmap MedicalCertificate
     {
-        get { return this.medicalCertifcate; }
-        set { this.medicalCertifcate = value; }
+        get { return this.medicalCertificate; }
+        set { this.medicalCertificate = value; }
     }
     public string SocialSecurityNumberChild
     {
@@ -98,7 +98,7 @@ public class User
             //TODO get userdata.
         }
     }
-    public void AddSickDays(Bitmap MedicalCertifcate)
+    public void AddSickDays(Bitmap MedicalCertificate)
     {
 
     }

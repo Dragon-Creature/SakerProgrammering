@@ -21,17 +21,14 @@ public class EmployeeDB
     {
         using (TransactionScope ts = new TransactionScope())
         {
-
             using (DataClassesDataContext db = new DataClassesDataContext())
             {
-
                 Illness illness = new Illness();
-                illness.Start = user.IllnessStart[0];
-                illness.medicalCertifcate = user.MedicalCertifcate[0];
-                if (illness.medicalCertifcate == true)     // Om användaren är sjukskriven av läkare, ange data. Annars, ange ett defaultvärde. Blir ett exception annars om inget anges.
-                    illness.Expires = user.MedicalCertificateExpires[0];
-                else
-                    illness.Expires = Convert.ToDateTime("1900-01-01");
+                illness.Start = user.IllnessStart[user.IllnessStart.Count-1];
+                illness.MedicalCertificate = user.MedicalCertificate[user.MedicalCertificate.Count - 1];
+                illness.ChildIllness = user.ChildIllness[user.ChildIllness.Count-1];
+                illness.Expires = user.MedicalCertificateExpires[user.MedicalCertificateExpires.Count-1];
+                illness.SocialSecurity = user.SocialSecurityNumberChild[user.SocialSecurityNumberChild.Count-1];
                 illness.AnstalldId = user.UserId;
 
                 db.Illnesses.InsertOnSubmit(illness);
@@ -39,27 +36,6 @@ public class EmployeeDB
             }
             ts.Complete();
         }
-        
-    }
-    public void AddChildSickDays(User user)
-    {
-        using (TransactionScope ts = new TransactionScope())
-        {
-
-            using (DataClassesDataContext db = new DataClassesDataContext())
-            {
-
-                ChildIllness childIllness = new ChildIllness();
-                childIllness.Start = user.IllnessStart[0];
-                childIllness.socialSecurity = user.SocialSecurityNumberChild[0];
-                childIllness.AnstalldId = user.UserId;
-                db.SubmitChanges();
-
-                db.ChildIllnesses.InsertOnSubmit(childIllness);
-                db.SubmitChanges();
-            }
-            ts.Complete();
-        }   
     }
 
     public List<Users> GetUserData(int useerId)

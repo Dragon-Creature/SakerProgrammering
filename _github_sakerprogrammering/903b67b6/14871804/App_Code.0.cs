@@ -35,13 +35,13 @@ public class EmployeeDB
         {
             DateTime illnessStart = user.IllnessStart;
             DateTime medicalCertificateExpires = user.MedicalCertificateExpires;
-            Bitmap medicalCertifcate = user.MedicalCertifcate;
+            Bitmap medicalCertificate = user.MedicalCertificate;
             int useerId = user.UserId;
-            command.CommandText = "INSERT INTO Illnes (Start, Expires, medicalCertifcate, AnstalldId) VALUES (@illnessStart, @medicalCertificateExpires, @medicalCertifcate, @useerId)";
+            command.CommandText = "INSERT INTO Illnes (Start, Expires, medicalCertificate, AnstalldId) VALUES (@illnessStart, @medicalCertificateExpires, @medicalCertificate, @useerId)";
 
             command.Parameters.AddWithValue("@illnessStart", illnessStart);
             command.Parameters.AddWithValue("@medicalCertificateExpires", medicalCertificateExpires);
-            command.Parameters.AddWithValue("@medicalCertifcate", medicalCertifcate);
+            command.Parameters.AddWithValue("@medicalCertificate", medicalCertificate);
             command.Parameters.AddWithValue("@useerId", useerId);
 
             conn.Open();
