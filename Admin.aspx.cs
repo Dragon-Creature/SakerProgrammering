@@ -10,6 +10,11 @@ public partial class Admin : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        User user = new User();
+        if (!user.Auth() && user.Role == "Admin")
+        {
+            Response.Redirect("~/Default.aspx");
+        }
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {

@@ -67,7 +67,11 @@ public class User
         Users user = employeeDB.GetUserData(useerId)[0];
         string dPassword = user.Password.Replace(" ", string.Empty);
         Password = HashPassword(Password);
-        if ((String.Compare(Password, dPassword)) == 0 && useerId == user.Id)
+        return Login(useerId, Password, dPassword);
+    }
+    private Boolean Login(int useerId, string Password, string dPassword)
+    {
+        if ((String.Compare(Password, dPassword)) == 0 && useerId > 0)
         {
             HttpSessionState httpss = HttpContext.Current.Session;
             httpss["useerId"] = useerId;
@@ -75,6 +79,19 @@ public class User
             return true;
         }
         return false;
+    }
+    public Boolean Auth()
+    {
+        HttpSessionState httpss = HttpContext.Current.Session;
+        int useerId = Convert.ToInt32(httpss["useerId"]);
+        string Password = Convert.ToString(httpss["Password"]);
+        if (Password == "" || Password == null)
+        {
+            return false;
+        }
+        Users user = employeeDB.GetUserData(useerId)[0];
+        string dPassword = user.Password.Replace(" ", string.Empty);
+        return Login(useerId, Password, dPassword);
     }
     public void Logout()
     {

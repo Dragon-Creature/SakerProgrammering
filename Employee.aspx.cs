@@ -9,7 +9,11 @@ public partial class Employee : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        User user = new User();
+        if (!user.Auth())
+        {
+            Response.Redirect("~/Default.aspx");
+        }
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
