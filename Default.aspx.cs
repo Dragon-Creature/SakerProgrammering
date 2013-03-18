@@ -14,14 +14,14 @@ public partial class _Default : System.Web.UI.Page
     protected void btnLogin_Click(object sender, EventArgs e)
     {
         User user = new User();
-        if (user.Login(Convert.ToInt32(txtUsUserId.Text), txtpassword.Text))    // TODO! Måste checka ifall det är admin eller employee.
+        if (user.Login(Convert.ToInt32(txtUsUserId.Text), txtpassword.Text))
         {
             user.GetUserData();
 
-            if (txtUsUserId.Text == "3")
+            if (user.Role == "admin")
                 Server.Transfer("Admin.aspx");
             else
-                Server.Transfer("Employee.aspx");                               // Testar lite mot databasen bara
+                Server.Transfer("Employee.aspx");
         }
 
         

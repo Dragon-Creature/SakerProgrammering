@@ -1,20 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="master" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=UTVECKLING-PC;Initial Catalog=SjukAnmala;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SjukAnmalaConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SjukAnmala" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLExpress;Initial Catalog=SjukAnmala;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SjukAnmalaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Roles" Member="Roles">
+    <Type Name="Roles">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="NChar(25) NOT NULL" CanBeNull="false" />
+      <Association Name="Role_User" Member="Users" ThisKey="Id" OtherKey="Role" Type="Users" />
+    </Type>
+  </Table>
   <Table Name="dbo.Users" Member="Users">
     <Type Name="Users">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Password" Type="System.String" DbType="NChar(1000) NOT NULL" CanBeNull="false" />
       <Column Name="Role" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Users_Illness" Member="Illnesses" ThisKey="Id" OtherKey="AnstalldId" Type="Illness" />
-      <Association Name="Roles_Users" Member="Roles" Storage="_Role1" ThisKey="Role" OtherKey="Id" Type="Roles" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Roles" Member="Roles">
-    <Type Name="Roles">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="RoleName" Type="System.String" DbType="NChar(25) NOT NULL" CanBeNull="false" />
-      <Association Name="Roles_Users" Member="Users" ThisKey="Id" OtherKey="Role" Type="Users" />
+      <Association Name="User_Illness" Member="Illnesses" ThisKey="Id" OtherKey="AnstalldId" Type="Illness" />
+      <Association Name="Role_User" Member="Roles" ThisKey="Role" OtherKey="Id" Type="Roles" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Illness" Member="Illnesses">
@@ -22,11 +22,11 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Start" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Expires" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="medicalCertificate" Member="MedicalCertificate" Storage="_medicalCertificate" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="MedicalCertificate" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="AnstalldId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ChildIllness" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="SocialSecurity" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="Users_Illness" Member="Users" Storage="_User" ThisKey="AnstalldId" OtherKey="Id" Type="Users" IsForeignKey="true" />
+      <Association Name="User_Illness" Member="Users" ThisKey="AnstalldId" OtherKey="Id" Type="Users" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

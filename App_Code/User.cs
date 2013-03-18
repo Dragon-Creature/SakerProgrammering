@@ -64,7 +64,7 @@ public class User
 
     public Boolean Login(int useerId, string Password)
     {
-        Users user = employeeDB.GetUserData(useerId)[0];
+        Users user = employeeDB.GetUserData(useerId);
         string dPassword = user.Password.Replace(" ", string.Empty);
         Password = HashPassword(Password);
         return Login(useerId, Password, dPassword);
@@ -89,7 +89,7 @@ public class User
         {
             return false;
         }
-        Users user = employeeDB.GetUserData(useerId)[0];
+        Users user = employeeDB.GetUserData(useerId);
         string dPassword = user.Password.Replace(" ", string.Empty);
         return Login(useerId, Password, dPassword);
     }
@@ -117,36 +117,42 @@ public class User
         string Password = Convert.ToString(httpss["Password"]);
         Users user = new Users();
 
-        user = employeeDB.GetUserData(useerId)[0];
-        this.UserId = user.Id;
-        this.Name = user.Name;
-        this.Role = user.Roles.RoleName;
-
-        for (int i = 0; i < user.Illnesses.Count; ++i)
+        user = employeeDB.GetUserData(useerId);
+        if (user != null)
         {
-            this.IllnessStart.Add(user.Illnesses[i].Start);
-            this.MedicalCertificate.Add((bool)user.Illnesses[i].MedicalCertificate);
-            this.MedicalCertificateExpires.Add(user.Illnesses[i].Expires);
-            this.ChildIllness.Add((bool)user.Illnesses[i].ChildIllness);
-            this.SocialSecurityNumberChild.Add(user.Illnesses[i].SocialSecurity);
+            this.UserId = user.Id;
+            this.Name = user.Name.Replace(" ", string.Empty);
+            this.Role = user.Roles.RoleName.Replace(" ", string.Empty);
+
+            for (int i = 0; i < user.Illnesses.Count; ++i)
+            {
+                this.IllnessStart.Add(user.Illnesses[i].Start);
+                this.MedicalCertificate.Add((bool)user.Illnesses[i].MedicalCertificate);
+                this.MedicalCertificateExpires.Add(user.Illnesses[i].Expires);
+                this.ChildIllness.Add((bool)user.Illnesses[i].ChildIllness);
+                this.SocialSecurityNumberChild.Add(user.Illnesses[i].SocialSecurity);
+            }
         }
     }
     public void GetEmployeeInfo(string userId)
     {
         Users user = new Users();
 
-        user = employeeDB.GetUserData(Convert.ToInt32(userId))[0];
-        this.UserId = user.Id;
-        this.Name = user.Name;
-        this.Role = user.Roles.RoleName;
-
-        for (int i = 0; i < user.Illnesses.Count; ++i)
+        user = employeeDB.GetUserData(Convert.ToInt32(userId));
+        if (user != null)
         {
-            this.IllnessStart.Add(user.Illnesses[i].Start);
-            this.MedicalCertificate.Add((bool)user.Illnesses[i].MedicalCertificate);
-            this.MedicalCertificateExpires.Add(user.Illnesses[i].Expires);
-            this.ChildIllness.Add((bool)user.Illnesses[i].ChildIllness);
-            this.SocialSecurityNumberChild.Add(user.Illnesses[i].SocialSecurity);
+            this.UserId = user.Id;
+            this.Name = user.Name.Replace(" ", string.Empty);
+            this.Role = user.Roles.RoleName.Replace(" ", string.Empty);
+
+            for (int i = 0; i < user.Illnesses.Count; ++i)
+            {
+                this.IllnessStart.Add(user.Illnesses[i].Start);
+                this.MedicalCertificate.Add((bool)user.Illnesses[i].MedicalCertificate);
+                this.MedicalCertificateExpires.Add(user.Illnesses[i].Expires);
+                this.ChildIllness.Add((bool)user.Illnesses[i].ChildIllness);
+                this.SocialSecurityNumberChild.Add(user.Illnesses[i].SocialSecurity);
+            }
         }
     }
     public int getUserId()

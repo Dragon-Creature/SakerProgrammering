@@ -38,9 +38,9 @@ public class EmployeeDB
         }
     }
 
-    public List<Users> GetUserData(int useerId)
+    public Users GetUserData(int useerId)
     {
-        List<Users> user = new List<Users>();
+        List<Users> user = new List<Users>(){null};
         DataClassesDataContext db = new DataClassesDataContext();
         
         var userData = from u in db.Users
@@ -49,7 +49,7 @@ public class EmployeeDB
 
         if (userData.Count() > 0)
             user = userData.ToList();
-        
-        return user;
+
+        return user[0];
     }
 }
