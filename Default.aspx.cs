@@ -14,16 +14,21 @@ public partial class _Default : System.Web.UI.Page
     protected void btnLogin_Click(object sender, EventArgs e)
     {
         User user = new User();
-        if (user.Login(Convert.ToInt32(txtUsUserId.Text), txtpassword.Text))
+        string userId = txtUsUserId.Text.Replace(" ", string.Empty);
+        string password = txtpassword.Text.Replace(" ", string.Empty);
+
+        if (userId != string.Empty || password != string.Empty)
         {
-            user.GetUserData();
+            if (user.Login(Convert.ToInt32(userId), password))
+            {
+                user.GetUserData();
 
-            if (user.Role == "admin")
-                Server.Transfer("Admin.aspx");
-            else
-                Server.Transfer("Employee.aspx");
+                if (user.Role == "admin")
+                    Server.Transfer("Admin.aspx");
+                else
+                    Server.Transfer("Employee.aspx");
+            }
         }
-
         
         // Loggar aktiviteten
         Log log = new Log();

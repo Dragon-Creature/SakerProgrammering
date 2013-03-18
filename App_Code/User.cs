@@ -65,9 +65,13 @@ public class User
     public Boolean Login(int useerId, string Password)
     {
         Users user = employeeDB.GetUserData(useerId);
-        string dPassword = user.Password.Replace(" ", string.Empty);
-        Password = HashPassword(Password);
-        return Login(useerId, Password, dPassword);
+        if (user != null)
+        {
+            string dPassword = user.Password.Replace(" ", string.Empty);
+            Password = HashPassword(Password);
+            return Login(useerId, Password, dPassword);
+        }
+        return false;
     }
     private Boolean Login(int useerId, string Password, string dPassword)
     {
@@ -90,8 +94,12 @@ public class User
             return false;
         }
         Users user = employeeDB.GetUserData(useerId);
-        string dPassword = user.Password.Replace(" ", string.Empty);
-        return Login(useerId, Password, dPassword);
+        if (user != null)
+        {
+            string dPassword = user.Password.Replace(" ", string.Empty);
+            return Login(useerId, Password, dPassword);
+        }
+        return false;
     }
     public void Logout()
     {
