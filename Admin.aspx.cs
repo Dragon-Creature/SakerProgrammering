@@ -61,4 +61,10 @@ public partial class Admin : System.Web.UI.Page
             log.LogMessage("Admin gjorde en sökning på anställningsnummer: " + txtSearch.Text + " från IP adress: " + Request.UserHostAddress);
         }
     }
+    protected void btnLogout_Click(object sender, EventArgs e)
+    {
+        User user = new User();
+        user.Logout();
+        Response.Redirect("Default.aspx");
+    }
 }

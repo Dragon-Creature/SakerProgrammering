@@ -84,5 +84,6 @@ public partial class Employee : System.Web.UI.Page
     {
         User user = new User();
         user.Logout();
+        Response.Redirect("Default.aspx");
     }
 }
