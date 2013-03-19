@@ -74,6 +74,7 @@
             </div>
         <asp:Button ID="btnSubmit" runat="server" Text="Skicka" OnClick="btnSubmit_Click" />
     </div>
+        <asp:Label ID="lblMessage" runat="server" ForeColor="#66FF33"></asp:Label>
     </form>
 </body>
 </html>

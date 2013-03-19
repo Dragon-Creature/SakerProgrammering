@@ -78,6 +78,7 @@ public partial class Employee : System.Web.UI.Page
                     user.AddSickDays();
                     break;
             }
+            lblMessage.Text = "Din sjukanmanälan är registrerad!";
         }
     }
     protected void btnLogout_Click(object sender, EventArgs e)
