@@ -34,51 +34,70 @@ public partial class Employee : System.Web.UI.Page
             {
                 case 0: // "Första sjukdagen"
 
-                    // TODO Vart hämtar jag användarnamnet ifrån? Sessionen kanske?
+                    // Loggar akriviteten till loggfilen
                     log.LogMessage("Användare: " + userId + " anmälde sjukskrivning, från IP adress: " + Request.UserHostAddress);
                     
-                    // TODO add to database..
+                    // add to database..
                     user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
                     user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
                     user.MedicalCertificate.Add(false);
                     user.ChildIllness.Add(false);
                     user.SocialSecurityNumberChild.Add(string.Empty);
                     user.AddSickDays();
+                    lblMessage.Text = "Din sjukanmanälan är registrerad!";
                     break;
 
                 case 1: // "Sjukskriven av läkare"
                     
                     DateTime toDate = Convert.ToDateTime(txtToDate.Text);
 
-                    // TODO Vart hämtar jag användarnamnet ifrån? Sessionen kanske?
-                    log.LogMessage("Användare: " + userId + " anmälde sjukskrivning av läkare, från IP adress: " + Request.UserHostAddress);
+                    if (!String.IsNullOrWhiteSpace(txtToDate.Text))
+                    {
+                        // Loggar akriviteten till loggfilen
+                        log.LogMessage("Användare: " + userId + " anmälde sjukskrivning av läkare, från IP adress: " + Request.UserHostAddress);
 
-                    // TODO add to database..
-                    user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
-                    user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
-                    user.MedicalCertificate.Add(true);
-                    user.ChildIllness.Add(false);
-                    user.SocialSecurityNumberChild.Add(string.Empty);
-                    user.AddSickDays();
+                        // add to database..
+                        user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
+                        user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
+                        user.MedicalCertificate.Add(true);
+                        user.ChildIllness.Add(false);
+                        user.SocialSecurityNumberChild.Add(string.Empty);
+                        user.AddSickDays();
+                        lblMessage.Text = "Din sjukanmanälan är registrerad!";
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Ange ett slutdatum för sjukskrivningen.";
+                    }
+
                     break;
 
                 case 2: // "Vård av barn"
-                    
-                    string ssn = txtChild.Text;
 
-                    // TODO Vart hämtar jag användarnamnet ifrån? Sessionen kanske?
-                    log.LogMessage("Användare: " + userId + " anmälde vård av barn, från IP adress: " + Request.UserHostAddress);
+                    if (!String.IsNullOrWhiteSpace(txtChild.Text))
+                    {
 
-                    // TODO add to database..
-                    user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
-                    user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
-                    user.MedicalCertificate.Add(false);
-                    user.ChildIllness.Add(true);
-                    user.SocialSecurityNumberChild.Add(ssn);
-                    user.AddSickDays();
-                    break;
+                        string ssn = txtChild.Text;
+
+                        // Loggar akriviteten till loggfilen
+                        log.LogMessage("Användare: " + userId + " anmälde vård av barn, från IP adress: " + Request.UserHostAddress);
+
+                        // add to database..
+                        user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
+                        user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
+                        user.MedicalCertificate.Add(false);
+                        user.ChildIllness.Add(true);
+                        user.SocialSecurityNumberChild.Add(ssn);
+                        user.AddSickDays();
+                        lblMessage.Text = "Din sjukanmanälan är registrerad!";
+                    }
+                    else 
+                    {
+                        lblMessage.Text = "Ange barnets personnummer.";
+                    }
+
+                   break;
             }
-            lblMessage.Text = "Din sjukanmanälan är registrerad!";
         }
     }
     protected void btnLogout_Click(object sender, EventArgs e)

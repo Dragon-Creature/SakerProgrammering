@@ -11,8 +11,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            //$('#DivDoctor').hide();
-
+            // Sätter datum-textboxarnas textvärde till dagens datum.
             $(function () {
                 $('#txtFromDate').val('<%= DateTime.Now.ToString("yyyy-MM-dd") %>');
                 $('#txtFromDate').datepicker({
@@ -25,13 +24,12 @@
                 });
             });
 
-
+            // visar/döljer divar baserat på valet av radiobutton
             $('#radioDiv input').click(function () {
                 var selected = $("#radioDiv input:radio:checked").val();
                 $("#DivDoctor").hide();
                 $("#DivChild").hide();
-                //alert(selected);
-                //$("#info").text('Selected Value: ' + $("#RadioDiv input:radio:checked").val());
+              
                 if ($("#radioDiv input:radio:checked").val() == "Sjukskriven av läkare") {
                     $("#DivDoctor").fadeIn();
                 }

@@ -10,11 +10,12 @@ using System.Text;
 /// </summary>
 public class Log
 {
-    // CONSTRUCTOR
-    // Sets the file location & name to a default value
+    /// <summary>
+    /// CONSTRUCTOR
+    /// Sets the file location & name to a default value
+    /// </summary>
     public Log()
     {
-        //this.FileLocation = "c:\\log\\";
         this.FileLocation = System.Web.HttpContext.Current.Server.MapPath("~");
         this.FileName = "log.txt";
     }
@@ -41,11 +42,13 @@ public class Log
         }
     }
 
-    // Log message to file. 
-    /*  
-        Ex. 
-        2013-03-05 10:35:00 - "Log Message"
-    */ 
+
+    /// <summary>
+    /// Log message to file
+    /// Ex.
+    /// 2013-03-05 10:35:00 - "Log Message"
+    /// </summary>
+    /// <param name="Message">The string to be logged</param>
     public void LogMessage(string Message)
     {
         FileStream fileStream = null;
