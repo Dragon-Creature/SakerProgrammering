@@ -1,4 +1,4 @@
-﻿#pragma checksum "D:\Github\SakerProgrammering\Employee.aspx.cs" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "E986086EFFC4DDCBA79256CCC00BA17B349507A4"
+﻿#pragma checksum "D:\Github\SakerProgrammering\Employee.aspx.cs" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "97094A27D4F88C81BC30DA5596E8C0E16557A650"
 
 #line 1 "D:\Github\SakerProgrammering\Employee.aspx.cs"
 using System;
@@ -82,6 +82,12 @@ public partial class Employee : System.Web.UI.Page
                     break;
             }
         }
+    }
+    protected void btnLogout_Click(object sender, EventArgs e)
+    {
+        User user = new User();
+        user.Logout();
+        Response.Redirect("Default.aspx");
     }
 }
 

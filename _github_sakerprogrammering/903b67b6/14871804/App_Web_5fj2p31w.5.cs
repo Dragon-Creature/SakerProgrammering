@@ -1,4 +1,4 @@
-﻿#pragma checksum "D:\Github\SakerProgrammering\Admin.aspx.cs" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "741CB4EC4BF83D315C9CA61A9665244F433C8FE2"
+﻿#pragma checksum "D:\Github\SakerProgrammering\Admin.aspx.cs" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "ECF93B5EDAA40C07B29A0516084CC88F969BDD99"
 
 #line 1 "D:\Github\SakerProgrammering\Admin.aspx.cs"
 using System;
@@ -63,6 +63,12 @@ public partial class Admin : System.Web.UI.Page
             Log log = new Log();
             log.LogMessage("Admin gjorde en sökning på anställningsnummer: " + txtSearch.Text + " från IP adress: " + Request.UserHostAddress);
         }
+    }
+    protected void btnLogout_Click(object sender, EventArgs e)
+    {
+        User user = new User();
+        user.Logout();
+        Response.Redirect("Default.aspx");
     }
 }
 

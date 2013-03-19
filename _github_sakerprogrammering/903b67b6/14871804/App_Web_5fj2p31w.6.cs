@@ -15,7 +15,7 @@
 namespace @__ASP {
     
     
-    internal class FastObjectFactory_app_web_dqsja3dz {
+    internal class FastObjectFactory_app_web_5fj2p31w {
         
         
         #line 1 "c:\\dummy.txt"
@@ -24,11 +24,7 @@ namespace @__ASP {
         #line hidden
         
         
-        private FastObjectFactory_app_web_dqsja3dz() {
-        }
-        
-        static object Create_ASP_admin_aspx() {
-            return new ASP.admin_aspx();
+        private FastObjectFactory_app_web_5fj2p31w() {
         }
         
         static object Create_ASP_employee_aspx() {
@@ -37,6 +33,10 @@ namespace @__ASP {
         
         static object Create_ASP_default_aspx() {
             return new ASP.default_aspx();
+        }
+        
+        static object Create_ASP_admin_aspx() {
+            return new ASP.admin_aspx();
         }
     }
 }

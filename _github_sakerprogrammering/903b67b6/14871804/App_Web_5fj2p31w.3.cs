@@ -1,4 +1,4 @@
-﻿#pragma checksum "D:\Github\SakerProgrammering\Default.aspx.cs" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "718B0A2304105BEBBBE2CF3D2B000B08801F6560"
+﻿#pragma checksum "D:\Github\SakerProgrammering\Default.aspx.cs" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "1867666594FE5C6F7834436DDAD1EE448D1A4321"
 
 #line 1 "D:\Github\SakerProgrammering\Default.aspx.cs"
 using System;
@@ -20,7 +20,7 @@ public partial class _Default : System.Web.UI.Page
         string userId = txtUsUserId.Text.Replace(" ", string.Empty);
         string password = txtpassword.Text.Replace(" ", string.Empty);
 
-        if (userId != string.Empty || password != string.Empty)
+        if (!String.IsNullOrEmpty(userId) || !String.IsNullOrEmpty(password))
         {
             if (user.Login(Convert.ToInt32(userId), password))
             {
