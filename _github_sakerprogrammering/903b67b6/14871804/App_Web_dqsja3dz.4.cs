@@ -192,9 +192,9 @@ namespace ASP {
     [System.Runtime.CompilerServices.CompilerGlobalScopeAttribute()]
     public class default_aspx : global::_Default, System.Web.IHttpHandler {
         
-        private static System.Reflection.MethodInfo @__PageInspector_SetTraceDataMethod = global::ASP.default_aspx.@__PageInspector_LoadHelper("SetTraceData");
-        
         private static bool @__initialized;
+        
+        private static object @__stringResource;
         
         private static object @__fileDependencies;
         
@@ -208,6 +208,7 @@ namespace ASP {
             #line default
             #line hidden
             if ((global::ASP.default_aspx.@__initialized == false)) {
+                global::ASP.default_aspx.@__stringResource = this.ReadStringResource();
                 dependencies = new string[2];
                 dependencies[0] = "~/Default.aspx";
                 dependencies[1] = "~/Default.aspx.cs";
@@ -218,36 +219,7 @@ namespace ASP {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private global::System.Web.UI.LiteralControl @__BuildControl__control2() {
-            global::System.Web.UI.LiteralControl @__ctrl;
-            @__ctrl = new global::System.Web.UI.LiteralControl("\r\n\r\n<!DOCTYPE html>\r\n\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n");
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        95,
-                        68,
-                        true});
-            return @__ctrl;
-        }
-        
-        private static System.Reflection.MethodInfo @__PageInspector_LoadHelper(string helperName) {
-            System.Type helperClass = System.Type.GetType("Microsoft.VisualStudio.Web.PageInspector.Runtime.WebForms.TraceHelpers, Microsoft" +
-                    ".VisualStudio.Web.PageInspector.Runtime, Version=1.2.0.0, Culture=neutral, Publi" +
-                    "cKeyToken=b03f5f7f11d50a3a", false, false);
-            if ((helperClass != null)) {
-                return helperClass.GetMethod(helperName);
-            }
-            return null;
-        }
-        
-        private void @__PageInspector_SetTraceData(object[] parameters) {
-            if ((global::ASP.default_aspx.@__PageInspector_SetTraceDataMethod != null)) {
-                global::ASP.default_aspx.@__PageInspector_SetTraceDataMethod.Invoke(null, parameters);
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private global::System.Web.UI.HtmlControls.HtmlTitle @__BuildControl__control4() {
+        private global::System.Web.UI.HtmlControls.HtmlTitle @__BuildControl__control3() {
             global::System.Web.UI.HtmlControls.HtmlTitle @__ctrl;
             
             #line 7 "D:\Github\SakerProgrammering\Default.aspx"
@@ -255,17 +227,11 @@ namespace ASP {
             
             #line default
             #line hidden
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        190,
-                        15,
-                        false});
             return @__ctrl;
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private global::System.Web.UI.HtmlControls.HtmlHead @__BuildControl__control3() {
+        private global::System.Web.UI.HtmlControls.HtmlHead @__BuildControl__control2() {
             global::System.Web.UI.HtmlControls.HtmlHead @__ctrl;
             
             #line 6 "D:\Github\SakerProgrammering\Default.aspx"
@@ -276,7 +242,7 @@ namespace ASP {
             global::System.Web.UI.HtmlControls.HtmlTitle @__ctrl1;
             
             #line 6 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl1 = this.@__BuildControl__control4();
+            @__ctrl1 = this.@__BuildControl__control3();
             
             #line default
             #line hidden
@@ -287,38 +253,6 @@ namespace ASP {
             
             #line default
             #line hidden
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        163,
-                        51,
-                        false});
-            return @__ctrl;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private global::System.Web.UI.LiteralControl @__BuildControl__control5() {
-            global::System.Web.UI.LiteralControl @__ctrl;
-            @__ctrl = new global::System.Web.UI.LiteralControl("\r\n<body>\r\n    ");
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        214,
-                        14,
-                        true});
-            return @__ctrl;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private global::System.Web.UI.LiteralControl @__BuildControl__control6() {
-            global::System.Web.UI.LiteralControl @__ctrl;
-            @__ctrl = new global::System.Web.UI.LiteralControl("\r\n        UserId\r\n        ");
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        260,
-                        26,
-                        true});
             return @__ctrl;
         }
         
@@ -339,25 +273,6 @@ namespace ASP {
             
             #line default
             #line hidden
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        286,
-                        59,
-                        false});
-            return @__ctrl;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private global::System.Web.UI.LiteralControl @__BuildControl__control7() {
-            global::System.Web.UI.LiteralControl @__ctrl;
-            @__ctrl = new global::System.Web.UI.LiteralControl("\r\n        ");
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        345,
-                        10,
-                        true});
             return @__ctrl;
         }
         
@@ -396,25 +311,6 @@ namespace ASP {
             
             #line default
             #line hidden
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        355,
-                        184,
-                        false});
-            return @__ctrl;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private global::System.Web.UI.LiteralControl @__BuildControl__control8() {
-            global::System.Web.UI.LiteralControl @__ctrl;
-            @__ctrl = new global::System.Web.UI.LiteralControl("\r\n        <br />\r\n        Password\r\n        ");
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        539,
-                        44,
-                        true});
             return @__ctrl;
         }
         
@@ -435,25 +331,6 @@ namespace ASP {
             
             #line default
             #line hidden
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        583,
-                        59,
-                        false});
-            return @__ctrl;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private global::System.Web.UI.LiteralControl @__BuildControl__control9() {
-            global::System.Web.UI.LiteralControl @__ctrl;
-            @__ctrl = new global::System.Web.UI.LiteralControl("\r\n        <br />\r\n        ");
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        642,
-                        26,
-                        true});
             return @__ctrl;
         }
         
@@ -486,25 +363,6 @@ namespace ASP {
             
             #line default
             #line hidden
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        668,
-                        81,
-                        false});
-            return @__ctrl;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private global::System.Web.UI.LiteralControl @__BuildControl__control10() {
-            global::System.Web.UI.LiteralControl @__ctrl;
-            @__ctrl = new global::System.Web.UI.LiteralControl("\r\n    ");
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        749,
-                        6,
-                        true});
             return @__ctrl;
         }
         
@@ -524,24 +382,36 @@ namespace ASP {
             
             #line default
             #line hidden
-            global::System.Web.UI.LiteralControl @__ctrl1;
+            System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
             
             #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl1 = this.@__BuildControl__control6();
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n        UserId\r\n        "));
             
             #line default
             #line hidden
-            System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
+            global::System.Web.UI.WebControls.TextBox @__ctrl1;
+            
+            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
+            @__ctrl1 = this.@__BuildControltxtUsUserId();
+            
+            #line default
+            #line hidden
             
             #line 10 "D:\Github\SakerProgrammering\Default.aspx"
             @__parser.AddParsedSubObject(@__ctrl1);
             
             #line default
             #line hidden
-            global::System.Web.UI.WebControls.TextBox @__ctrl2;
             
             #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl2 = this.@__BuildControltxtUsUserId();
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n        "));
+            
+            #line default
+            #line hidden
+            global::System.Web.UI.WebControls.RegularExpressionValidator @__ctrl2;
+            
+            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
+            @__ctrl2 = this.@__BuildControlrevNumber();
             
             #line default
             #line hidden
@@ -551,10 +421,16 @@ namespace ASP {
             
             #line default
             #line hidden
-            global::System.Web.UI.LiteralControl @__ctrl3;
             
             #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl3 = this.@__BuildControl__control7();
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n        <br />\r\n        Password\r\n        "));
+            
+            #line default
+            #line hidden
+            global::System.Web.UI.WebControls.TextBox @__ctrl3;
+            
+            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
+            @__ctrl3 = this.@__BuildControltxtpassword();
             
             #line default
             #line hidden
@@ -564,10 +440,16 @@ namespace ASP {
             
             #line default
             #line hidden
-            global::System.Web.UI.WebControls.RegularExpressionValidator @__ctrl4;
             
             #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl4 = this.@__BuildControlrevNumber();
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n        <br />\r\n        "));
+            
+            #line default
+            #line hidden
+            global::System.Web.UI.WebControls.Button @__ctrl4;
+            
+            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
+            @__ctrl4 = this.@__BuildControlbtnLogin();
             
             #line default
             #line hidden
@@ -577,90 +459,12 @@ namespace ASP {
             
             #line default
             #line hidden
-            global::System.Web.UI.LiteralControl @__ctrl5;
             
             #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl5 = this.@__BuildControl__control8();
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n    "));
             
             #line default
             #line hidden
-            
-            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__parser.AddParsedSubObject(@__ctrl5);
-            
-            #line default
-            #line hidden
-            global::System.Web.UI.WebControls.TextBox @__ctrl6;
-            
-            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl6 = this.@__BuildControltxtpassword();
-            
-            #line default
-            #line hidden
-            
-            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__parser.AddParsedSubObject(@__ctrl6);
-            
-            #line default
-            #line hidden
-            global::System.Web.UI.LiteralControl @__ctrl7;
-            
-            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl7 = this.@__BuildControl__control9();
-            
-            #line default
-            #line hidden
-            
-            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__parser.AddParsedSubObject(@__ctrl7);
-            
-            #line default
-            #line hidden
-            global::System.Web.UI.WebControls.Button @__ctrl8;
-            
-            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl8 = this.@__BuildControlbtnLogin();
-            
-            #line default
-            #line hidden
-            
-            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__parser.AddParsedSubObject(@__ctrl8);
-            
-            #line default
-            #line hidden
-            global::System.Web.UI.LiteralControl @__ctrl9;
-            
-            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl9 = this.@__BuildControl__control10();
-            
-            #line default
-            #line hidden
-            
-            #line 10 "D:\Github\SakerProgrammering\Default.aspx"
-            @__parser.AddParsedSubObject(@__ctrl9);
-            
-            #line default
-            #line hidden
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        228,
-                        534,
-                        false});
-            return @__ctrl;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private global::System.Web.UI.LiteralControl @__BuildControl__control11() {
-            global::System.Web.UI.LiteralControl @__ctrl;
-            @__ctrl = new global::System.Web.UI.LiteralControl("\r\n</body>\r\n</html>\r\n");
-            this.@__PageInspector_SetTraceData(new object[] {
-                        @__ctrl,
-                        null,
-                        762,
-                        20,
-                        true});
             return @__ctrl;
         }
         
@@ -672,24 +476,36 @@ namespace ASP {
             
             #line default
             #line hidden
-            global::System.Web.UI.LiteralControl @__ctrl1;
+            System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
+            
+            #line 1 "D:\Github\SakerProgrammering\Default.aspx"
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n\r\n<!DOCTYPE html>\r\n\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n"));
+            
+            #line default
+            #line hidden
+            global::System.Web.UI.HtmlControls.HtmlHead @__ctrl1;
             
             #line 1 "D:\Github\SakerProgrammering\Default.aspx"
             @__ctrl1 = this.@__BuildControl__control2();
             
             #line default
             #line hidden
-            System.Web.UI.IParserAccessor @__parser = ((System.Web.UI.IParserAccessor)(@__ctrl));
             
             #line 1 "D:\Github\SakerProgrammering\Default.aspx"
             @__parser.AddParsedSubObject(@__ctrl1);
             
             #line default
             #line hidden
-            global::System.Web.UI.HtmlControls.HtmlHead @__ctrl2;
             
             #line 1 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl2 = this.@__BuildControl__control3();
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n<body>\r\n    "));
+            
+            #line default
+            #line hidden
+            global::System.Web.UI.HtmlControls.HtmlForm @__ctrl2;
+            
+            #line 1 "D:\Github\SakerProgrammering\Default.aspx"
+            @__ctrl2 = this.@__BuildControlform1();
             
             #line default
             #line hidden
@@ -699,42 +515,9 @@ namespace ASP {
             
             #line default
             #line hidden
-            global::System.Web.UI.LiteralControl @__ctrl3;
             
             #line 1 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl3 = this.@__BuildControl__control5();
-            
-            #line default
-            #line hidden
-            
-            #line 1 "D:\Github\SakerProgrammering\Default.aspx"
-            @__parser.AddParsedSubObject(@__ctrl3);
-            
-            #line default
-            #line hidden
-            global::System.Web.UI.HtmlControls.HtmlForm @__ctrl4;
-            
-            #line 1 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl4 = this.@__BuildControlform1();
-            
-            #line default
-            #line hidden
-            
-            #line 1 "D:\Github\SakerProgrammering\Default.aspx"
-            @__parser.AddParsedSubObject(@__ctrl4);
-            
-            #line default
-            #line hidden
-            global::System.Web.UI.LiteralControl @__ctrl5;
-            
-            #line 1 "D:\Github\SakerProgrammering\Default.aspx"
-            @__ctrl5 = this.@__BuildControl__control11();
-            
-            #line default
-            #line hidden
-            
-            #line 1 "D:\Github\SakerProgrammering\Default.aspx"
-            @__parser.AddParsedSubObject(@__ctrl5);
+            @__parser.AddParsedSubObject(new System.Web.UI.LiteralControl("\r\n</body>\r\n</html>\r\n"));
             
             #line default
             #line hidden
@@ -745,6 +528,7 @@ namespace ASP {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         protected override void FrameworkInitialize() {
             base.FrameworkInitialize();
+            this.SetStringResourcePointer(global::ASP.default_aspx.@__stringResource, 0);
             this.@__BuildControlTree(this);
             this.AddWrappedFileDependencies(global::ASP.default_aspx.@__fileDependencies);
             this.Request.ValidateInput();

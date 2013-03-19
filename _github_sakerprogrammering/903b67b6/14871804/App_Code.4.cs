@@ -12,27 +12,3 @@
 [assembly: System.Security.SecurityRulesAttribute(System.Security.SecurityRuleSet.Level2)]
 [assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.5")]
 
-namespace @__ASP {
-    
-    
-    internal class FastObjectFactory_app_web_wrlgxtgw {
-        
-        
-        #line 1 "c:\\dummy.txt"
-
-        #line default
-        #line hidden
-        
-        
-        private FastObjectFactory_app_web_wrlgxtgw() {
-        }
-        
-        static object Create_ASP_default_aspx() {
-            return new ASP.default_aspx();
-        }
-        
-        static object Create_ASP_admin_aspx() {
-            return new ASP.admin_aspx();
-        }
-    }
-}

@@ -1,4 +1,4 @@
-﻿#pragma checksum "D:\Github\SakerProgrammering\App_Code\EmployeeDB.cs" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "19C563B025059490B9194BFD12264E64A8A749E9"
+﻿#pragma checksum "D:\Github\SakerProgrammering\App_Code\EmployeeDB.cs" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "E3373129B1F112072C43BACD4BC588B388C484B1"
 
 #line 1 "D:\Github\SakerProgrammering\App_Code\EmployeeDB.cs"
 using System;
@@ -9,77 +9,51 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Transactions;
+using System.Web.UI.WebControls;
 
 /// <summary>
 /// Summary description for EmployeeDB
 /// </summary>
 public class EmployeeDB
 {
-    SqlConnection conn;
-    String s;
-    SqlCommand command;
-	public EmployeeDB()
-	{
-        //s = ConfigurationManager.ConnectionStrings["dataBaseStructure"].ConnectionString;
+    public EmployeeDB()
+    {
+    }
+    public void AddSickDays(User user)
+    {
+        using (TransactionScope ts = new TransactionScope())
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                Illness illness = new Illness();
+                illness.Start = user.IllnessStart[user.IllnessStart.Count-1];
+                illness.MedicalCertificate = user.MedicalCertificate[user.MedicalCertificate.Count - 1];
+                illness.ChildIllness = user.ChildIllness[user.ChildIllness.Count-1];
+                illness.Expires = user.MedicalCertificateExpires[user.MedicalCertificateExpires.Count-1];
+                illness.SocialSecurity = user.SocialSecurityNumberChild[user.SocialSecurityNumberChild.Count-1];
+                illness.AnstalldId = user.UserId;
+
+                db.Illnesses.InsertOnSubmit(illness);
+                db.SubmitChanges();
+            }
+            ts.Complete();
+        }
+    }
+
+    public Users GetUserData(int useerId)
+    {
+        List<Users> user = new List<Users>(){null};
+        DataClassesDataContext db = new DataClassesDataContext();
         
-        conn = new SqlConnection(s);
-        command = conn.CreateCommand();
-	}
-    internal void AddLog(Log log)
-    {
-        //Behöver en tabell för att spara loggen. Om vi inte ska spara som fil, som redan är implementerat.
-    }
-    internal void AddSickDays(User user)
-    {
-        try
-        {
-            DateTime illnessStart = user.IllnessStart;
-            DateTime medicalCertificateExpires = user.MedicalCertificateExpires;
-            Bitmap medicalCertificate = user.MedicalCertificate;
-            int useerId = user.UserId;
-            command.CommandText = "INSERT INTO Illnes (Start, Expires, medicalCertificate, AnstalldId) VALUES (@illnessStart, @medicalCertificateExpires, @medicalCertificate, @useerId)";
+        var userData = from u in db.Users
+                    where u.Id == useerId
+                    select u;
 
-            command.Parameters.AddWithValue("@illnessStart", illnessStart);
-            command.Parameters.AddWithValue("@medicalCertificateExpires", medicalCertificateExpires);
-            command.Parameters.AddWithValue("@medicalCertificate", medicalCertificate);
-            command.Parameters.AddWithValue("@useerId", useerId);
+        if (userData.Count() > 0)
+            user = userData.ToList();
 
-            conn.Open();
-            command.ExecuteNonQuery();
-        }
-        catch (SqlException ex)
-        {
-            //Nånting
-        }
-    }
-    internal void AddChildSickDays(User user)
-    {
-        try
-        {
-            DateTime illnessStart = user.IllnessStart;
-            string socialSecurityNumberChild = user.SocialSecurityNumberChild;
-            int useerId = user.UserId;
-            command.CommandText = "INSERT INTO ChildIllness (Start, socialSecurity, AnstalldId) VALUES (@illnessStart, @socialSecurityNumberChild, @useerId)";
-
-            command.Parameters.AddWithValue("@illnessStart", illnessStart);
-            command.Parameters.AddWithValue("@socialSecurityNumberChild", socialSecurityNumberChild);
-            command.Parameters.AddWithValue("@useerId", useerId);
-
-            conn.Open();
-            command.ExecuteNonQuery();
-        }
-        catch (SqlException ex)
-        {
-            //Nånting
-        }
-    }
-    internal User getUserInfo(int useerId)
-    {
-        User user = new User();
-
-        
-
-        return user;
+        return user[0];
     }
 }
 

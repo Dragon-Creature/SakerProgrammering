@@ -1,4 +1,7 @@
-﻿using System;
+﻿#pragma checksum "D:\Github\SakerProgrammering\Admin.aspx.cs" "{ff1816ec-aa5e-4d10-87f7-6f4963833460}" "741CB4EC4BF83D315C9CA61A9665244F433C8FE2"
+
+#line 1 "D:\Github\SakerProgrammering\Admin.aspx.cs"
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -62,3 +65,6 @@ public partial class Admin : System.Web.UI.Page
         }
     }
 }
+
+#line default
+#line hidden

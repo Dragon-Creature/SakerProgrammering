@@ -89,7 +89,7 @@ public class User
         HttpSessionState httpss = HttpContext.Current.Session;
         int useerId = Convert.ToInt32(httpss["useerId"]);
         string Password = Convert.ToString(httpss["Password"]);
-        if (Password == "" || Password == null)
+        if (String.IsNullOrEmpty(Password))
         {
             return false;
         }
