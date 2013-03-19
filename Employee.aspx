@@ -24,23 +24,7 @@
                     dateFormat: 'yy-mm-dd'
                 });
             });
-            /*
-            $('input[name=chkDoctor]').change(function () {
-                if ($(this).attr('checked')) {
-                    $('#DivDoctor').fadeOut();
-                    return;
-                }
-                $('#DivDoctor').fadeIn();
-            });
 
-            $('input[name=chkChild]').change(function () {
-                if ($(this).attr('checked')) {
-                    $('#DivChild').fadeOut();
-                    return;
-                }
-                $('#DivChild').fadeIn();
-            });
-            */
 
             $('#radioDiv input').click(function () {
                 var selected = $("#radioDiv input:radio:checked").val();

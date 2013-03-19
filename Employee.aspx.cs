@@ -80,4 +80,9 @@ public partial class Employee : System.Web.UI.Page
             }
         }
     }
+    protected void btnLogout_Click(object sender, EventArgs e)
+    {
+        User user = new User();
+        user.Logout();
+    }
 }
