@@ -21,8 +21,6 @@ public partial class Employee : System.Web.UI.Page
         if (Page.IsValid) 
         {
             User user = new User();
-            int userId = user.GetUserId();
-            DateTime fromDate = Convert.ToDateTime(txtFromDate.Text);
 
             // Anger vilken typ som är vald i radiobutton-listan. 
             int sicknessType = RadioButtonList1.SelectedIndex;
@@ -35,7 +33,7 @@ public partial class Employee : System.Web.UI.Page
                 case 0: // "Första sjukdagen"
 
                     // Loggar akriviteten till loggfilen
-                    log.LogMessage("Användare: " + userId + " anmälde sjukskrivning, från IP adress: " + Request.UserHostAddress);
+                    log.LogMessage("Användare: " + user.GetUserId() + " anmälde sjukskrivning, från IP adress: " + Request.UserHostAddress);
                     
                     // add to database..
                     user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
@@ -49,13 +47,10 @@ public partial class Employee : System.Web.UI.Page
 
                 case 1: // "Sjukskriven av läkare"
                     
-
                     if (!String.IsNullOrWhiteSpace(txtToDate.Text))
                     {
-                        DateTime toDate = Convert.ToDateTime(txtToDate.Text);
-
                         // Loggar akriviteten till loggfilen
-                        log.LogMessage("Användare: " + userId + " anmälde sjukskrivning av läkare, från IP adress: " + Request.UserHostAddress);
+                        log.LogMessage("Användare: " + user.GetUserId() + " anmälde sjukskrivning av läkare, från IP adress: " + Request.UserHostAddress);
 
                         // add to database..
                         user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
@@ -77,18 +72,15 @@ public partial class Employee : System.Web.UI.Page
 
                     if (!String.IsNullOrWhiteSpace(txtChild.Text))
                     {
-
-                        string ssn = txtChild.Text;
-
                         // Loggar akriviteten till loggfilen
-                        log.LogMessage("Användare: " + userId + " anmälde vård av barn, från IP adress: " + Request.UserHostAddress);
+                        log.LogMessage("Användare: " + user.GetUserId() + " anmälde vård av barn, från IP adress: " + Request.UserHostAddress);
 
                         // add to database..
                         user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
                         user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
                         user.MedicalCertificate.Add(false);
                         user.ChildIllness.Add(true);
-                        user.SocialSecurityNumberChild.Add(ssn);
+                        user.SocialSecurityNumberChild.Add(txtChild.Text);
                         user.AddSickDays();
                         lblMessage.Text = "Din sjukanmanälan är registrerad!";
                     }

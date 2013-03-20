@@ -10,13 +10,16 @@ using System.Transactions;
 using System.Web.UI.WebControls;
 
 /// <summary>
-/// Summary description for EmployeeDB
+/// Direktåtkomst av databasen
+/// Endast User.cs har åtkomst till denna klass
 /// </summary>
 public class EmployeeDB
 {
     public EmployeeDB()
     {
     }
+
+    // Lägger till sjukskrivningar
     public void AddSickDays(User user)
     {
         using (TransactionScope ts = new TransactionScope())
@@ -38,13 +41,14 @@ public class EmployeeDB
         }
     }
 
-    public Users GetUserData(int useerId)
+    // Hämtar information från en specifik användare
+    public Users GetUserData(int userId)
     {
         List<Users> user = new List<Users>(){null};
         DataClassesDataContext db = new DataClassesDataContext();
         
         var userData = from u in db.Users
-                    where u.Id == useerId
+                    where u.Id == userId
                     select u;
 
         if (userData.Count() > 0)

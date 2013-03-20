@@ -20,8 +20,8 @@ public partial class Admin : System.Web.UI.Page
     {
         // Init
         User user = new User();
-        String medicalCertificateExpires = "";
-        String socialSecurityNumberChild = "";
+        string medicalCertificateExpires = "";
+        string socialSecurityNumberChild = "";
 
         if (Page.IsValid)
         {

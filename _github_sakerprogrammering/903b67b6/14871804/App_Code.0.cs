@@ -47,7 +47,7 @@ public class EmployeeDB
         DataClassesDataContext db = new DataClassesDataContext();
         
         var userData = from u in db.Users
-                    where u.Id == useerId
+                    where u.Id == userId
                     select u;
 
         if (userData.Count() > 0)
