@@ -24,7 +24,7 @@ public partial class Employee : System.Web.UI.Page
         if (Page.IsValid) 
         {
             User user = new User();
-            int userId = user.getUserId();
+            int userId = user.GetUserId();
             DateTime fromDate = Convert.ToDateTime(txtFromDate.Text);
 
             // Anger vilken typ som är vald i radiobutton-listan. 

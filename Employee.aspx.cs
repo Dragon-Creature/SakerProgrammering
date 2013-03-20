@@ -21,7 +21,7 @@ public partial class Employee : System.Web.UI.Page
         if (Page.IsValid) 
         {
             User user = new User();
-            int userId = user.getUserId();
+            int userId = user.GetUserId();
             DateTime fromDate = Convert.ToDateTime(txtFromDate.Text);
 
             // Anger vilken typ som är vald i radiobutton-listan. 
@@ -49,10 +49,11 @@ public partial class Employee : System.Web.UI.Page
 
                 case 1: // "Sjukskriven av läkare"
                     
-                    DateTime toDate = Convert.ToDateTime(txtToDate.Text);
 
                     if (!String.IsNullOrWhiteSpace(txtToDate.Text))
                     {
+                        DateTime toDate = Convert.ToDateTime(txtToDate.Text);
+
                         // Loggar akriviteten till loggfilen
                         log.LogMessage("Användare: " + userId + " anmälde sjukskrivning av läkare, från IP adress: " + Request.UserHostAddress);
 

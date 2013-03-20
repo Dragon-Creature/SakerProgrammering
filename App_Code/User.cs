@@ -163,7 +163,7 @@ public class User
             }
         }
     }
-    public int getUserId()
+    public int GetUserId()
     {
         HttpSessionState httpss = HttpContext.Current.Session;
         return Convert.ToInt32(httpss["useerId"]);

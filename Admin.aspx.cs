@@ -28,7 +28,7 @@ public partial class Admin : System.Web.UI.Page
             DataTable dt = new DataTable();
             user.GetEmployeeInfo(txtSearch.Text);   // Hämta all info om en efterfrågad medlem
 
-            /**********Lägg till kolumner**********/
+            // Lägg till kolumner
             dt.Columns.Add("ID");
             dt.Columns.Add("Fr.o.m");
             dt.Columns.Add("Läkarintyg");
@@ -36,7 +36,7 @@ public partial class Admin : System.Web.UI.Page
             dt.Columns.Add("VAB");
             dt.Columns.Add("Barnets Personnummer");
 
-            /****************Spara all medlemsinfo till en datatabell****************/
+            // Spara all medlemsinfo till en datatabell
             for (int i = 0; i < user.IllnessStart.Count; ++i)
             {
                 if (user.MedicalCertificate[i] == false)
@@ -52,7 +52,7 @@ public partial class Admin : System.Web.UI.Page
                 dt.LoadDataRow(new object[] { user.UserId, user.IllnessStart[i], user.MedicalCertificate[i], medicalCertificateExpires, user.ChildIllness[i], socialSecurityNumberChild }, true);
             }
 
-            /**********Spara datatabellen till gridden*************/
+            // Spara datatabellen till gridden
             gridViewUserInfo.DataSource = dt;
             gridViewUserInfo.DataBind();
             
