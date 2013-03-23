@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 public partial class Employee : System.Web.UI.Page
 {
@@ -14,6 +15,11 @@ public partial class Employee : System.Web.UI.Page
         {
             Response.Redirect("~/Default.aspx");
         }
+
+        //if (RadioButtonList1.SelectedIndex == 1)
+        //    txtToDate.Visible = true;
+        //if (RadioButtonList1.SelectedIndex == 2)
+        //    txtChild.Visible = true;
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -46,8 +52,9 @@ public partial class Employee : System.Web.UI.Page
                     break;
 
                 case 1: // "Sjukskriven av läkare"
-                    
-                    if (!String.IsNullOrWhiteSpace(txtToDate.Text))
+
+                    DateTime dateValue;
+                    if (DateTime.TryParse(txtToDate.Text, out dateValue))
                     {
                         // Loggar akriviteten till loggfilen
                         log.LogMessage("Användare: " + user.GetUserId() + " anmälde sjukskrivning av läkare, från IP adress: " + Request.UserHostAddress);
@@ -63,18 +70,19 @@ public partial class Employee : System.Web.UI.Page
                     }
                     else
                     {
-                        lblMessage.Text = "Ange ett slutdatum för sjukskrivningen.";
+                        lblToDateErrorMessage.Visible = true;
                     }
 
                     break;
 
                 case 2: // "Vård av barn"
 
-                    if (!String.IsNullOrWhiteSpace(txtChild.Text))
+                    Match match = Regex.Match(txtChild.Text, @"^\d{6}-\d{4}", RegexOptions.IgnoreCase);
+                    if (match.Success)
                     {
                         // Loggar akriviteten till loggfilen
                         log.LogMessage("Användare: " + user.GetUserId() + " anmälde vård av barn, från IP adress: " + Request.UserHostAddress);
-
+                                            //ÅÅMMDD-xxxx
                         // add to database..
                         user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
                         user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
@@ -84,9 +92,9 @@ public partial class Employee : System.Web.UI.Page
                         user.AddSickDays();
                         lblMessage.Text = "Din sjukanmanälan är registrerad!";
                     }
-                    else 
+                    else
                     {
-                        lblMessage.Text = "Ange barnets personnummer.";
+                        lblSsnErrorMessage.Visible = true;
                     }
 
                    break;

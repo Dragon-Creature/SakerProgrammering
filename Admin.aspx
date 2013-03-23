@@ -11,7 +11,7 @@
         <div>
             <h1>Admin</h1>
 
-            <asp:Button ID="btnLogout" runat="server" OnClick="btnLogout_Click" Text="Logout" />
+            <asp:Button ID="btnLogout" runat="server" OnClick="btnLogout_Click" Text="Logga ut" />
             <br />
 
             <asp:Label Text="Ange anställningsnummer:" runat="server" AssociatedControlID="txtSearch" />
