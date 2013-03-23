@@ -5,6 +5,11 @@ using System.Web;
 using System.IO;
 using System.Text;
 
+/*
+ * FileName: Log.cs
+ * Author: Joakim Hising
+ */
+
 /// <summary>
 /// Log messages to a file
 /// </summary>

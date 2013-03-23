@@ -6,6 +6,14 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 
+/*
+ * FileName: Employee.aspx.cs
+ * 
+ * Author: Joakim Hising - Front-End Logic
+ * Author: Remi Tonning - Back-End Logic
+ * 
+ */
+
 public partial class Employee : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
