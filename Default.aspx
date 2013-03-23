@@ -20,9 +20,6 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*Minimum sju tecken [Innehållande minst en siffra och versal]" ControlToValidate="txtpassword" EnableClientScript="False" ForeColor="#CC3300"></asp:RequiredFieldValidator>
             <br />
             <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
-            <%--<asp:Login ID="Login1" runat="server" OnAuthenticate="Login1_Authenticate">
-        </asp:Login>
-        <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="Login1" />--%>
             <br />
             <asp:Label ID="lblLoginFail" runat="server" Text="* Fel id och/eller lösenord" Visible="False" ForeColor="#CC3300"></asp:Label>
     </form>

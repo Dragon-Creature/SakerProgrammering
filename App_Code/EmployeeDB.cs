@@ -9,6 +9,18 @@ using System.Drawing;
 using System.Transactions;
 using System.Web.UI.WebControls;
 
+ /* FileName: EmployeeDB.aspx.cs
+ * 
+ * Author: Remi Tonning
+ * 
+ */
+
+/* Database
+ * 
+ * Author: Simon Lindgren
+ * 
+ */
+
 /// <summary>
 /// Direktåtkomst av databasen
 /// Endast User.cs har åtkomst till denna klass

@@ -8,12 +8,21 @@ using System.Web;
 using System.Web.UI.WebControls;
 using System.Collections.Generic;
 
+/*
+ * FileName: User.cs
+ * 
+ * Author: Simon Lindgren och Remi Tonning
+ * 
+ */
+
 public class User
 {
+    /// <summary>
+    /// Initiering / Deklaration
+    /// </summary>
     private int userId = -1;//
     private string name;
     private string role;
-    //private Regex passwordPolicy;
     private List<DateTime> illnessStart = new List<DateTime>();//
     private List<DateTime> medicalCertificateExpires = new List<DateTime>();//
     private List<bool> medicalCertificate = new List<bool>();//
@@ -21,6 +30,9 @@ public class User
     private List<bool> childIllness = new List<bool>();
     private EmployeeDB employeeDB = new EmployeeDB();
 
+    /// <summary>
+    /// Egenskaper
+    /// </summary>
     public int UserId
     {
         get { return this.userId; }
@@ -62,6 +74,16 @@ public class User
         set { this.childIllness = value; }
     }
 
+    
+    /// <summary>
+    /// Verifiering
+    /// Checkar om användaren finns i databasen
+    /// genom databasklassen
+    /// och att lösenord stämmer överens
+    /// </summary>
+    /// <param name="useerId">Användaren id</param>
+    /// <param name="Password">Användare lösenord</param>
+    /// <returns></returns>
     public Boolean Login(int useerId, string Password)
     {
         Users user = employeeDB.GetUserData(useerId);
@@ -73,6 +95,15 @@ public class User
         }
         return false;
     }
+
+    /// <summary>
+    /// Verifiering
+    /// Jämför användaren lösenord med lösenord från databas
+    /// </summary>
+    /// <param name="useerId">Användarens id</param>
+    /// <param name="Password">Användarens lösenord</param>
+    /// <param name="dPassword">Lösenord från databas</param>
+    /// <returns></returns>
     private Boolean Login(int useerId, string Password, string dPassword)
     {
         if ((String.Compare(Password, dPassword)) == 0 && useerId > 0)
@@ -84,6 +115,11 @@ public class User
         }
         return false;
     }
+
+    /// <summary>
+    /// Checkar om användare är inloggad
+    /// </summary>
+    /// <returns></returns>
     public Boolean Auth()
     {
         HttpSessionState httpss = HttpContext.Current.Session;
@@ -101,12 +137,23 @@ public class User
         }
         return false;
     }
+
+    /// <summary>
+    /// Loggar ut användare
+    /// </summary>
     public void Logout()
     {
         HttpSessionState httpss = HttpContext.Current.Session;
         httpss.Remove("useerId");
         httpss.Remove("Password");
     }
+
+    /// <summary>
+    /// Hashar användarens lösenord vid inloggning,
+    /// med SHA256
+    /// </summary>
+    /// <param name="Password"></param>
+    /// <returns></returns>
     private string HashPassword(string Password)
     {
         SHA256Managed crypt = new SHA256Managed();
@@ -118,11 +165,15 @@ public class User
         }
         return hash;
     }
+
+    /// <summary>
+    /// Spar all info om användaren hämtat
+    /// från databasen via databasklassen
+    /// </summary>
     public void GetUserData()
     {
         HttpSessionState httpss = HttpContext.Current.Session;
         int useerId = Convert.ToInt32(httpss["useerId"]);
-        string Password = Convert.ToString(httpss["Password"]);
         Users user = new Users();
 
         user = employeeDB.GetUserData(useerId);
@@ -142,6 +193,14 @@ public class User
             }
         }
     }
+
+    /// <summary>
+    /// Spar all info om användaren hämtat
+    /// från databasen
+    /// Sidor för användare med adminrättigheter
+    /// är beroende av denna metod
+    /// </summary>
+    /// <param name="userId"></param>
     public void GetEmployeeInfo(string userId)
     {
         Users user = new Users();
@@ -163,11 +222,23 @@ public class User
             }
         }
     }
+
+    /// <summary>
+    /// Hämtar användarens id
+    /// </summary>
+    /// <returns></returns>
     public int GetUserId()
     {
         HttpSessionState httpss = HttpContext.Current.Session;
         return Convert.ToInt32(httpss["useerId"]);
     }
+
+    /// <summary>
+    /// Spara sjukanmälan till databas
+    /// via databasklassen.
+    /// Sidor för sjukanmälan nyttjar 
+    /// denna metod
+    /// </summary>
     public void AddSickDays()
     {
         employeeDB.AddSickDays(this);

@@ -6,12 +6,20 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 
+/*
+ * FileName: Admin.aspx.cs
+ * 
+ * Author: Simon Lindgren - Front-End Logic
+ * Author: Remi Tonning - Back-End Logic
+ * 
+ */
+
 public partial class Admin : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         User user = new User();
-        if (!user.Auth() && String.Compare(user.Role, "Admin") == 0)
+        if (!user.Auth())
         {
             Response.Redirect("~/Default.aspx");
         }
@@ -61,6 +69,9 @@ public partial class Admin : System.Web.UI.Page
             log.LogMessage("Admin gjorde en sökning på anställningsnummer: " + txtSearch.Text + " från IP adress: " + Request.UserHostAddress);
         }
     }
+    /// <summary>
+    /// Logga ut och dirigera användaren till main/login
+    /// </summary>
     protected void btnLogout_Click(object sender, EventArgs e)
     {
         User user = new User();

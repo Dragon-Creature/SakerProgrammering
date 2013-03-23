@@ -23,6 +23,9 @@ public partial class Employee : System.Web.UI.Page
         {
             Response.Redirect("~/Default.aspx");
         }
+
+        lblErrorMessage.Text = "";
+        lblMessage.Text = "";
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -43,8 +46,8 @@ public partial class Employee : System.Web.UI.Page
 
                     // Loggar akriviteten till loggfilen
                     log.LogMessage("Användare: " + user.GetUserId() + " anmälde sjukskrivning, från IP adress: " + Request.UserHostAddress);
-                    
-                    // add to database..
+
+                    // Spara till databas
                     user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
                     user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
                     user.MedicalCertificate.Add(false);
@@ -62,7 +65,7 @@ public partial class Employee : System.Web.UI.Page
                         // Loggar akriviteten till loggfilen
                         log.LogMessage("Användare: " + user.GetUserId() + " anmälde sjukskrivning av läkare, från IP adress: " + Request.UserHostAddress);
 
-                        // add to database..
+                        // Spara till databas
                         user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
                         user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
                         user.MedicalCertificate.Add(true);
@@ -83,8 +86,8 @@ public partial class Employee : System.Web.UI.Page
                     {
                         // Loggar akriviteten till loggfilen
                         log.LogMessage("Användare: " + user.GetUserId() + " anmälde vård av barn, från IP adress: " + Request.UserHostAddress);
-                                            //ÅÅMMDD-xxxx
-                        // add to database..
+
+                        // Spara till databas
                         user.IllnessStart.Add(Convert.ToDateTime(txtFromDate.Text));
                         user.MedicalCertificateExpires.Add(Convert.ToDateTime(txtToDate.Text));
                         user.MedicalCertificate.Add(false);

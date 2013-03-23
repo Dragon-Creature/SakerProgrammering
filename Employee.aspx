@@ -61,6 +61,7 @@
                     </asp:RadioButtonList>
                 </fieldset>
 
+
             </div>
             <div id="DivDoctor" style="display: none">
                 <asp:Label ID="lblToDate" runat="server" Text="Till och med:" AssociatedControlID="txtToDate"></asp:Label>
@@ -76,9 +77,9 @@
             </div>
             <asp:Button ID="btnSubmit" runat="server" Text="Skicka" OnClick="btnSubmit_Click" ValidationGroup="ValidationGroup" />
         </div>
-        <asp:Label ID="lblErrorMessage" runat="server" ForeColor="#FF3300"></asp:Label>
+        <asp:Label ID="lblErrorMessage" runat="server" Text="" ForeColor="#FF3300"></asp:Label>
         <br />
-        <asp:Label ID="lblMessage" runat="server" ForeColor="#66FF33"></asp:Label>
+        <asp:Label ID="lblMessage" runat="server" Text="" ForeColor="#66FF33"></asp:Label>
     </form>
 </body>
 </html>
