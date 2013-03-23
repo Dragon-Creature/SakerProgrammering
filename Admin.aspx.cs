@@ -9,7 +9,7 @@ using System.Data;
 /*
  * FileName: Admin.aspx.cs
  * 
- * Author: Simon Lindgren - Front-End Logic
+ * Author: Joakim Hising - Front-End Logic
  * Author: Remi Tonning - Back-End Logic
  * 
  */
