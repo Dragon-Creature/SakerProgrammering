@@ -23,11 +23,6 @@ public partial class Employee : System.Web.UI.Page
         {
             Response.Redirect("~/Default.aspx");
         }
-
-        //if (RadioButtonList1.SelectedIndex == 1)
-        //    txtToDate.Visible = true;
-        //if (RadioButtonList1.SelectedIndex == 2)
-        //    txtChild.Visible = true;
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -77,9 +72,7 @@ public partial class Employee : System.Web.UI.Page
                         lblMessage.Text = "Din sjukanmanälan är registrerad!";
                     }
                     else
-                    {
-                        lblToDateErrorMessage.Visible = true;
-                    }
+                        lblErrorMessage.Text = "*Ange ett datum med formatet: ÅÅÅÅ-MM-DD";
 
                     break;
 
@@ -101,12 +94,12 @@ public partial class Employee : System.Web.UI.Page
                         lblMessage.Text = "Din sjukanmanälan är registrerad!";
                     }
                     else
-                    {
-                        lblSsnErrorMessage.Visible = true;
-                    }
+                        lblErrorMessage.Text = "*Ange ett personnummer med formatet: ÅÅMMDD-xxxx";
 
                    break;
             }
+
+            RadioButtonList1.ClearSelection();
         }
     }
     protected void btnLogout_Click(object sender, EventArgs e)

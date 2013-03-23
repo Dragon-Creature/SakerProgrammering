@@ -60,23 +60,24 @@
                         <asp:ListItem>Vård av barn</asp:ListItem>
                     </asp:RadioButtonList>
                 </fieldset>
+
             </div>
             <div id="DivDoctor" style="display: none">
                 <asp:Label ID="lblToDate" runat="server" Text="Till och med:" AssociatedControlID="txtToDate"></asp:Label>
                 <asp:TextBox ID="txtToDate" runat="server"></asp:TextBox>
-                <asp:Label ID="lblToDateErrorMessage" runat="server" Text="*Ange ett datum med formatet: ÅÅÅÅ-MM-DD" Visible="false" ForeColor="#FF3300"></asp:Label>
                 <%--<asp:RegularExpressionValidator ID="txtToDateExpressionValidator" runat="server" ErrorMessage="*Ange ett datum med formatet: ÅÅÅÅ-MM-DD" ValidationExpression="^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$" ControlToValidate="txtToDate" ValidationGroup="ValidationGroup" ForeColor="#FF3300"></asp:RegularExpressionValidator>
                 <asp:RequiredFieldValidator ID="txtToDateFieldValidator" runat="server" ControlToValidate="txtToDate" ValidationGroup="ValidationGroup" ErrorMessage="*Ange ett datum med formatet: ÅÅÅÅ-MM-DD" ForeColor="#FF3300"></asp:RequiredFieldValidator>--%>
             </div>
             <div id="DivChild" style="display: none">
                 <asp:Label ID="Ssn" runat="server" Text="Barnets Personnummer:" AssociatedControlID="txtChild"></asp:Label>
                 <asp:TextBox ID="txtChild" runat="server"></asp:TextBox>
-                <asp:Label ID="lblSsnErrorMessage" runat="server" Text="*Ange ett personnummer med formatet: ÅÅMMDD-xxxx" Visible="false" ForeColor="#FF3300"></asp:Label>
                 <%--<asp:RegularExpressionValidator ID="txtChildValidator" runat="server" ErrorMessage="*Ange ett personnummer med formatet: ÅÅMMDD-xxxx" ValidationExpression="\d{6}-\d{4}" ControlToValidate="txtChild" ValidationGroup="ValidationGroup" ForeColor="#FF3300"></asp:RegularExpressionValidator>
                 <asp:RequiredFieldValidator ID="txtChildFieldValidator" runat="server" ControlToValidate="txtChild" ValidationGroup="ValidationGroup" ErrorMessage="*Ange ett personnummer med formatet: ÅÅMMDD-xxxx" ForeColor="#FF3300"></asp:RequiredFieldValidator>--%>
             </div>
             <asp:Button ID="btnSubmit" runat="server" Text="Skicka" OnClick="btnSubmit_Click" ValidationGroup="ValidationGroup" />
         </div>
+        <asp:Label ID="lblErrorMessage" runat="server" ForeColor="#FF3300"></asp:Label>
+        <br />
         <asp:Label ID="lblMessage" runat="server" ForeColor="#66FF33"></asp:Label>
     </form>
 </body>
