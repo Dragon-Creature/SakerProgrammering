@@ -163,7 +163,7 @@ public partial class Roles : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_User", Storage="_Users", ThisKey="Id", OtherKey="Role")]
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Roles_Users", Storage="_Users", ThisKey="Id", OtherKey="Role")]
 	public EntitySet<Users> Users
 	{
 		get
@@ -332,7 +332,7 @@ public partial class Users : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Illness", Storage="_Illnesses", ThisKey="Id", OtherKey="AnstalldId")]
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Users_Illness", Storage="_Illnesses", ThisKey="Id", OtherKey="AnstalldId")]
 	public EntitySet<Illness> Illnesses
 	{
 		get
@@ -345,7 +345,7 @@ public partial class Users : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Role_User", Storage="_Roles", ThisKey="Role", OtherKey="Id", IsForeignKey=true)]
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Roles_Users", Storage="_Roles", ThisKey="Role", OtherKey="Id", IsForeignKey=true)]
 	public Roles Roles
 	{
 		get
@@ -604,7 +604,7 @@ public partial class Illness : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Illness", Storage="_Users", ThisKey="AnstalldId", OtherKey="Id", IsForeignKey=true)]
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Users_Illness", Storage="_Users", ThisKey="AnstalldId", OtherKey="Id", IsForeignKey=true)]
 	public Users Users
 	{
 		get
